@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dev-dist/
 .venv/
 __pycache__/
 .pytest_cache/
@@ -9,5 +10,5 @@ __pycache__/
 !.env.example
 *.log
 .DS_Store
-docs/screenshots/_tmp/
 *.bundle
+web/e2e/perf-report.json

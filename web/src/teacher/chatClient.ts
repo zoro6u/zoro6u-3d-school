@@ -49,7 +49,7 @@ export async function* streamChat(req: ChatRequest, signal?: AbortSignal, fetchI
 
 export async function fetchHealth(fetchImpl: typeof fetch = fetch): Promise<{ llm: boolean; provider: string | null } | null> {
   try {
-    const res = await fetchImpl(`${API_BASE}/api/health`);
+    const res = await fetchImpl(`${API_BASE}/api/health`, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) return null;
     return (await res.json()) as { llm: boolean; provider: string | null };
   } catch {

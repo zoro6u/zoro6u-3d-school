@@ -5,6 +5,7 @@ import { hasWebGL } from '../../landing/hasWebGL';
 import { useSettings } from '../../store/settings';
 import { chipLabel } from '../../teacher/chips';
 import { useRegisterScene } from '../../teacher/scene';
+import { CanvasBoundary } from '../../app/CanvasBoundary';
 import { LabShell } from '../LabShell';
 import { clampTo, defaultSetup, physicsConfig } from './config';
 import { Explainer } from './Explainer';
@@ -116,8 +117,8 @@ function Experiment() {
   const btn = 'rounded-lg border border-slate-600 bg-slate-800 px-3 py-1.5 text-sm font-medium hover:bg-slate-700';
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_21rem]">
-      <div className="space-y-4">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_21rem]">
+      <div className="min-w-0 space-y-4">
         <div role="tablist" aria-label={t('physics.tabs.label')} className="inline-flex overflow-hidden rounded-lg border border-slate-600">
           {(['pendulum', 'spring'] as const).map((m) => (
             <button
@@ -134,9 +135,9 @@ function Experiment() {
 
         <div className="relative h-72 overflow-hidden rounded-xl border border-slate-700 bg-[#0b1220] sm:h-96" dir="ltr">
           {webgl && (
-            <Suspense fallback={null}>
+            <CanvasBoundary><Suspense fallback={null}>
               <Scene3D engine={engine} setup={setup} lowGraphics={lowGraphics} />
-            </Suspense>
+            </Suspense></CanvasBoundary>
           )}
         </div>
 
@@ -155,13 +156,13 @@ function Experiment() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2">
           <LiveChart engine={engine} title={posTitle} timeLabel={t('physics.charts.time')} unit={mode === 'pendulum' ? '°' : 'm'} series={posSeries} range="symmetric" lowGraphics={lowGraphics} summary={posSummary} />
           <LiveChart engine={engine} title={energyTitle} timeLabel={t('physics.charts.time')} unit="J" series={energySeries} range="zero" lowGraphics={lowGraphics} summary={energySummary} />
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="min-w-0 space-y-4">
         <section aria-labelledby="ctl" className="space-y-3 rounded-xl border border-slate-700 bg-slate-900 p-3">
           <h3 id="ctl" className="font-semibold">{t('physics.controls.title')}</h3>
           {mode === 'pendulum' ? (

@@ -1,151 +1,134 @@
 # 3D School
 
-Interactive Biology, Physics and Chemistry labs in 3D, with AI "teacher" characters. English + Arabic (RTL).
+[![CI](https://github.com/zoro6u/zoro6u-3d-school/actions/workflows/ci.yml/badge.svg)](https://github.com/zoro6u/zoro6u-3d-school/actions/workflows/ci.yml)
 
-> **Status:** Phase 6 of 7 — three labs, the AI teacher, offline guided tours, quizzes and saved progress. Next: polish, README media, Docker, deploy notes (Phase 7).
+**Learn Biology, Physics and Chemistry by exploring them in 3D, with an AI teacher beside you.**
+Three interactive labs, three teacher characters who can *see* what you're doing and *operate* the simulation while they explain,
+full English + Arabic (RTL) support, and a guided tour that works even with no API key and no internet.
 
-## Run it
+![3D School landing page: a 3D school hallway with three lab doors](docs/screenshots/01-landing.png)
 
-```bash
-# frontend
-cd web && pnpm install && pnpm dev          # http://localhost:5173
-# backend (optional until Phase 5)
-cd api && uv sync && uv run uvicorn app.main:app --reload   # http://localhost:8000/api/health
+> 🎬 **Demo GIF: placeholder.** To be recorded on a phone (`docs/demo.gif`).
+
+## What's inside
+
+| | Lab | Highlights |
+|---|---|---|
+| 🧬 | **Biology: Animal Cell** | Procedural 3D cell (nucleus, mitochondria, ribosomes, rough/smooth ER, Golgi, lysosomes, membrane, cytoplasm). Orbit/zoom, click to fly to an organelle, **cutaway** slice, info panel. No external models, so no licensing issues. |
+| ⚛️ | **Physics: Pendulum + Mass–spring** | A *real* RK4 simulation (fixed timestep, full nonlinear pendulum, not an animation). Sliders, Earth/Moon/Mars, live charts of angle and kinetic/potential/total energy, **theoretical vs measured period**, and an explanation of when the small-angle approximation fails (at 90° it's ~18% off). |
+| ⚗️ | **Chemistry: 2H₂ + O₂ → 2H₂O** | Ball-and-stick CPK molecules; bonds break, atoms rearrange, new bonds form, exothermic glow. Step-by-step mode, an interactive **balancing view**, and a bond-energy ledger (1370 − 1852 = −482 kJ vs measured −483.6). **Data-driven**: HCl + NaOH → NaCl + H₂O was added with data files only. |
+
+**AI teachers**: Dr. Nour (biology), Prof. Karim (physics), Ms. Layla (chemistry): low-poly 3D characters with idle animation, blinking and a mouth that follows their voice.
+- **Scene-aware**: every question carries the live scene as JSON (angle, selected organelle, reaction step…).
+- **They operate the lab** through validated tool calls (`set_param`, `focus_object`, `play_reaction_step`, `reset_scene`): "show me the Moon" actually switches gravity.
+- **Socratic mode** ("Ask me") guides with questions instead of lecturing.
+- **Grounded**: each lesson's curated `facts.md` is injected as ground truth; science-only, age-appropriate, refuses off-topic requests, prompt-injection aware.
+- **Short, spoken-style, streamed** replies with captions always on.
+- **Offline fallback**: narrated **guided tours** (scene actions synced to narration), plus **3-question quizzes** and **saved progress**. All work with no key and no network.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/02-physics-teacher.png" alt="Physics lab with the AI teacher answering"><br><sub><b>Physics</b>: the teacher switches to the Moon preset; the green chip shows what it changed.</sub></td>
+<td width="50%"><img src="docs/screenshots/03-biology-cutaway.png" alt="Cell cutaway with mitochondria focused"><br><sub><b>Biology</b>: cutaway slice and a focused organelle.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/04-chemistry-reaction.png" alt="Chemistry reaction with exothermic glow"><br><sub><b>Chemistry</b>: new O–H bonds form; the glow shows energy released.</sub></td>
+<td><img src="docs/screenshots/05-chemistry-balance.png" alt="Atom balancing view"><br><sub><b>Balancing view</b>: atom counts on both sides.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/06-guided-tour.png" alt="Guided tour card"><br><sub><b>Guided tour</b>: narrated, works offline.</sub></td>
+<td><img src="docs/screenshots/07-quiz.png" alt="Quiz question with feedback"><br><sub><b>Quiz</b>: instant feedback with the teacher's explanation.</sub></td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/08-arabic-rtl.png" alt="Arabic right-to-left interface"><br><sub><b>Arabic / RTL</b>: UI, lessons and teacher answer in Arabic.</sub></td>
+<td><img src="docs/screenshots/10-mobile-biology.png" width="240" alt="Mobile layout"><br><sub><b>Mobile</b>: runs on a phone; low-graphics mode and auto-downgrade.</sub></td>
+</tr>
+</table>
+
+## Architecture
+
+A static React app plus a small FastAPI service whose only job is proxying the LLM, so **API keys never reach the browser**.
+Lesson content (facts, tours, quizzes, reactions, tool limits) is data in `/content`, shared by both halves.
+
+```mermaid
+flowchart LR
+  subgraph Browser["Browser (React + Three.js)"]
+    direction TB
+    Labs["Labs (lazy-loaded)<br/>Physics · Biology · Chemistry"]
+    AD{{"SceneAdapter<br/>state JSON · validated actions"}}
+    T["Teacher layer<br/>chat · tours · quizzes · speech · avatar"]
+    Labs <--> AD
+    T <--> AD
+  end
+  subgraph API["FastAPI (stateless)"]
+    direction TB
+    P["prompt = persona + guardrails<br/>+ facts.md + scene JSON"] --> L["tool loop<br/>validates every call"]
+  end
+  T -- "POST /api/chat (SSE)" --> P
+  L -- "text · validated actions" --> T
+  L <--> C[("Claude API")]
+  D[("content/ data")] -.-> Browser
+  D -.-> API
 ```
 
-Copy `.env.example` to `.env` for backend config. With no API key the app still works (scripted tours arrive in Phase 6).
+More: [docs/architecture.md](docs/architecture.md) (sequence diagram, design decisions and their trade-offs) ·
+[docs/features.md](docs/features.md) (per-lab details) · [docs/performance.md](docs/performance.md) ·
+[docs/deploy.md](docs/deploy.md) · [docs/live-verification.md](docs/live-verification.md)
 
-## Tests
+## Quick start
 
 ```bash
-cd web && pnpm test && pnpm typecheck
-cd api && uv run pytest && uv run ruff check .
+# 1. backend (Python ≥ 3.11, uv)   and   2. frontend (Node ≥ 22, pnpm)
+make install
+make dev-mock      # API with a scripted fake teacher: no API key needed
+make dev-web       # http://localhost:5173
+```
+With a real key: `cp .env.example .env`, set `ANTHROPIC_API_KEY`, run `make dev-api` instead of `dev-mock`.
+Everything else (labs, tours, quizzes, progress) works with **no key at all**.
+Full stack in containers: `docker compose up --build` → http://localhost:8080.
+
+| Variable | Default | |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | – | server-side only; empty → chat offline, tours still work |
+| `ANTHROPIC_MODEL` | `claude-sonnet-5-5` | **`claude-haiku-5-5` is the cheaper option for public demos** |
+| `ANTHROPIC_EFFORT` | `low` | thinking depth (low keeps replies snappy) |
+| `CORS_ORIGINS`, `RATE_LIMIT_PER_MINUTE`, `TRUST_PROXY`, `MAX_OUTPUT_TOKENS` | see `.env.example` | |
+| `MOCK_LLM` | `false` | dev/CI only: scripted teacher, no key |
+
+## Quality
+
+| | |
+|---|---|
+| **Tests** | 99 backend (pytest) + 215 frontend (Vitest). Physics checked against textbook values (T = 2π√(L/g), exact large-angle period, energy conservation); every reaction data file validated (balance, atom conservation, geometry); tool validators in TS and Python tested against **one shared case file**; every number a tour states is verified against the simulation; the real Anthropic SDK is run against replayed API events. |
+| **Types / lint** | TypeScript `strict` (+ `noUncheckedIndexedAccess`), ruff |
+| **Accessibility** | axe-core WCAG 2.1 A/AA: **0 violations** across all pages in EN and AR, with panels and dialogs open. Keyboard-operable labs (arrow keys rotate, +/− zoom), captions for everything the teacher says, `prefers-reduced-motion` + toggle, visible focus. |
+| **Responsive** | no horizontal overflow at 360/390/768/1280 px (loads and live resizes) |
+| **Security** | keys server-side; input caps + rate limit; strict CSP; non-root container; tool calls validated twice; localStorage sanitised on load |
+| **Performance** | 375 KB gzip landing; each lab +2–12 KB; JS holds 60 fps at 4× CPU throttle; ≤55 draw calls, ≤45k triangles; adaptive low-graphics. See [docs/performance.md](docs/performance.md) |
+| **CI** | GitHub Actions: lint, typecheck, tests, build, and both Docker images |
+
+`make test` runs the unit suites. `make audit` runs the accessibility/overflow/perf audits (they need Playwright and a running preview).
+
+## Honest limitations
+
+- **Lip-sync is simulated.** The Web Speech API exposes no audio waveform, so the mouth follows a speech-rate oscillation plus word-boundary events (Chrome desktop fires them; Android often doesn't). The `SpeechProvider` interface lets a TTS that returns audio supply real amplitude later.
+- **Arabic voices vary** by browser and OS. When none exists the UI says so and the teacher is captions-only. Voice *input* (`SpeechRecognition`) is Chromium/Safari only.
+- **Not measured on a real phone.** Development hardware had no GPU, so GPU frame rates are unmeasured; see [docs/performance.md](docs/performance.md) for exactly what was and wasn't. Use `?perf=1` on a device.
+- **The live Claude call was verified with replayed API events, not a real key.** [docs/live-verification.md](docs/live-verification.md) is a 10-minute checklist to confirm it.
+- **The science models are deliberately simplified**, and the UI says so (H₂ + O₂ is really a radical chain reaction; ionic compounds in solution are ions, not molecules; the cell is not to scale).
+- **Arabic text was written by an AI** (MSA) and needs a native speaker's review. All of it lives in `web/src/i18n/ar.json` and `content/**/*.ar.json`.
+- **Deploy configs for Vercel/Netlify/Render/Fly are validated but untested on the platforms** (the Docker images and nginx were tested for real).
+
+## Repository layout
+
+```
+content/    lesson data shared by web + api (facts, tours, quizzes, reactions, teachers)
+web/        React + Vite + TypeScript, React Three Fiber, Zustand, Tailwind, i18next; e2e/ = Playwright audits
+api/        FastAPI: /api/chat (SSE), prompt builder, tool validator, Anthropic client
+docs/       architecture, features, performance, deploy, live verification, screenshots
+Dockerfile · web/Dockerfile · docker-compose.yml · render.yaml · fly.toml · vercel.json · netlify.toml · .github/workflows/ci.yml
 ```
 
-## Layout
+## License
 
-- `web/` React + Vite + TypeScript (strict), React Three Fiber, Zustand, Tailwind, i18next
-- `api/` FastAPI; will proxy all LLM calls so keys never reach the browser
-- `content/lessons/<id>/` lesson data (metadata now; facts, tours, quizzes in later phases)
-
-All UI strings live in `web/src/i18n/{en,ar}.json`; a test enforces that both files have identical keys.
-
-## Demo GIF
-
-_Placeholder — to be recorded on a phone._
-
-## Physics lab (Phase 2)
-
-- Real numerical simulation: RK4 at a fixed 2 ms timestep (`web/src/labs/physics/sim/`, pure TypeScript, no React/Three).
-- The pendulum uses the **full nonlinear equation** `θ'' = −(g/L)·sin θ − c/(mL²)·θ'` — no small-angle shortcut.
-- The measured period comes from interpolated zero-crossings of the live simulation and is shown beside the theory:
-  small-angle `T = 2π√(L/g)`, the exact large-angle period (via the arithmetic–geometric mean), and the damped period.
-  At 90° the small-angle formula is ~18% off; the lab explains why.
-- Slider ranges, defaults and gravity presets (Earth 9.81, Moon 1.62, Mars 3.71 m/s²) live in
-  `content/lessons/physics-oscillations/lesson.json`.
-- 28 unit tests check the maths against textbook values, energy conservation, mass-independence of the period, etc.
-
-## Biology lab (Phase 3)
-
-- Procedural animal cell (no external models): nucleus with chromatin + nucleolus, mitochondria with cristae, rough ER sheets
-  with ribosomes on them, smooth ER tubes, Golgi stack, lysosomes, cell membrane and cytoplasm.
-- Orbit / zoom / pinch; click an organelle (or pick it from the list) and the camera flies to it, it glows, and the
-  info panel shows its function and a fact. Keyboard: arrows rotate, `+`/`−` zoom, `Esc` clears.
-- **Cutaway** removes a wedge of the membrane and cytoplasm with GPU clipping planes (organelles stay whole).
-  Raycasting ignores clipping planes, so clicks inside the removed wedge are filtered out in code (`pick.ts`, tested).
-- Ribosomes (~240) and lysosomes are `InstancedMesh`; one shared material per organelle makes highlighting trivial.
-  "Low graphics" halves the ribosome count and mesh segment counts.
-- Layout is deterministic (seeded PRNG) and unit-tested: nothing pokes out of the membrane or overlaps another organelle.
-- Organelle names/functions/facts are in `web/src/i18n/{en,ar}.json` under `biology.organelles.*`;
-  colours and camera framing are in `content/lessons/biology-animal-cell/lesson.json`.
-- The model is schematic, not to scale (the UI says so).
-
-## Chemistry lab (Phase 4) — data-driven
-
-- A reaction is a folder of data files, nothing else:
-  `content/lessons/chemistry-water-synthesis/reactions/<id>/{reaction.json, en.json, ar.json}`.
-  `reaction.json` holds species, the equation, atoms, and **stage keyframes** (atom positions + bonds per stage);
-  `en.json`/`ar.json` hold the captions. Adding HCl + NaOH → NaCl + H₂O needed **no code changes** — it ships as the second reaction
-  and appears in the UI automatically.
-- One generic engine plays any reaction: atoms interpolate between keyframes, bonds fade out as they break and in as they form.
-  Controls: play/pause, **step forward/back** (pauses at each stage), scrub timeline, stage chips, 0.5×–2× speed.
-- Exothermic glow (soft additive sprite, light, and sparks) driven by a per-stage `glow` value; ball-and-stick with CPK colours
-  from `content/elements.json`; ionic bonds drawn as thin translucent sticks.
-- **Balancing view:** change the coefficients and watch atom counts on both sides (✓/✗ per element); it flags
-  balanced-but-not-simplest answers (e.g. 4H₂ + 2O₂ → 4H₂O).
-- **Energy:** the energy diagram and bond-bookkeeping panel are *derived* from the bonds in the data and tabulated mean bond
-  energies (2·436 + 498 = 1370 kJ absorbed, 4·463 = 1852 kJ released, net −482 kJ vs the measured −483.6 kJ).
-- **Data validation:** every reaction file is validated by the test suite — balanced equation, same atoms in every stage,
-  first/last stage form exactly the reactant/product molecules, no overlapping atoms, plausible bond lengths, and en+ar text for every stage.
-  A broken data file fails `pnpm test` with a readable message.
-- Honest simplifications, shown in the UI: the real H₂ + O₂ reaction is a radical chain mechanism (H•, O•, OH•) and needs a
-  spark; in solution NaOH and NaCl are ions, not molecules.
-
-## AI teacher (Phase 5)
-
-One teacher per lab — **Dr. Nour** (biology), **Prof. Karim** (physics), **Ms. Layla** (chemistry) — each with a personality and
-teaching style (`content/teachers/*.json`), a low-poly procedural 3D character with idle animation, and a mouth driven by the voice.
-
-- **Backend (FastAPI):** `POST /api/chat` streams Server-Sent Events (`text`, `action`, `done`, `error`). All LLM calls go through the
-  server, so the API key never reaches the browser. The model name is config (`ANTHROPIC_MODEL`, default `claude-sonnet-5-5`;
-  **`claude-haiku-5-5` is the cheaper option for public demos**).
-- **Scene-aware:** every request carries the live scene as JSON (pendulum length/angle/energies/periods, selected organelle,
-  reaction step…), wrapped as untrusted data in the prompt.
-- **Scene control through tool use:** `set_param`, `focus_object`, `play_reaction_step`, `reset_scene`. Which tools and which
-  ranges are allowed per lesson is data (`teacherTools` in each `lesson.json`; ranges point at the same data the sliders use).
-  Every call is validated **twice** — on the server before it is accepted, and in the browser before it touches the scene — by two
-  implementations that are tested against one shared set of 50 cases (`content/tests/tool-cases.json`). Invalid calls are returned
-  to the model as errors so it can correct itself; they never reach the scene.
-- **Guardrails:** curated `facts.md` per lesson injected as ground truth; science-only, age-appropriate, "don't invent facts",
-  prompt-injection resistant; input caps (message length, history, scene size) and a per-IP rate limit.
-- **Socratic mode:** the "Ask me" toggle makes the teacher guide with questions instead of lecturing.
-- **Short spoken replies** (2–4 sentences), streamed, spoken sentence-by-sentence as they arrive; captions are always shown.
-- **Voice behind an interface** (`SpeechProvider`): Web Speech API by default; swap in a paid TTS with `setSpeechProvider()`.
-  Optional voice input via `SpeechRecognition` (Chromium/Safari only).
-- **Offline / no key:** `/api/chat` answers 503 `llm_unavailable`; the panel shows an offline banner and the labs keep working.
-  The scripted guided tour (below) is the fallback.
-
-### Honest limits
-- **Lip-sync is simulated, not amplitude-based.** The Web Speech API plays audio straight to the OS, so there is no waveform to
-  read. The mouth follows a speech-rate oscillation plus word-boundary events (Chrome desktop fires them; Android often doesn't).
-  A TTS provider that returns audio can expose an `AnalyserNode` for true amplitude sync without touching the avatar.
-- **Arabic voices vary by browser/OS.** Chrome on Android usually has one; many desktop browsers don't. When none exists the UI says
-  so and the teacher is captions-only.
-- **The live Claude call is untested here** (no API key in the build environment). It is covered by tests that run the real SDK
-  against replayed API events, and by a scripted mock LLM (`MOCK_LLM=true`, dev/CI only). Follow
-  [`docs/live-verification.md`](docs/live-verification.md) to confirm with your key.
-
-### Dev without a key
-```bash
-cd api && MOCK_LLM=true uv run uvicorn app.main:app --reload     # scripted teacher
-cd web && pnpm dev
-```
-
-## Guided tours, quizzes and progress (Phase 6)
-
-**Offline guided tour — works with no API key and no network.** Each lab has a narrated walkthrough (`tour.json` + `tour.en.json`
-+ `tour.ar.json` next to the lesson). A step performs scene actions, shows the caption, and speaks it with the teacher's voice;
-the tour moves on when the voice finishes (or after a reading-time floor if voice is off or unavailable). Controls: pause/resume,
-next/back (stepping while paused shows each step without auto-advancing), end tour. Physics: reset → 10° swing → longer pendulum →
-heavier bob → Moon → 90° swing → damping → spring → 4× mass. Biology follows a protein from nucleus → ribosome → rough ER →
-Golgi, then the rest of the cell, ending in a cutaway. Chemistry steps through all six stages, balances the equation, and shows
-the acid–base reaction.
-- Tours use the **same actions and validator** as the AI teacher (`set_param`, `focus_object`, …), so a tour can never do
-  something the teacher couldn't — and a test validates every tour action against the lesson manifest on both the TypeScript and
-  Python side.
-- **The numbers a tour states are tested against the simulation** (e.g. "2.84 s", "7.0 s", "2.37 s", "1.40 s", "2.81 s",
-  and the 1370 / 1852 / −482 / −483.6 kJ bookkeeping).
-
-**Quizzes.** Three questions per lab (`quiz.json` + `quiz.en/ar.json`), four choices each, instant feedback with an explanation after
-every answer, deterministic scoring (pass mark 2/3), and a result screen with a teacher's scripted feedback line. When the AI
-teacher is online, a missed question offers "Ask … to explain", which sends the question, your answer and the right answer to
-the teacher. Quiz answers are tested against the real physics/chemistry code. The dialog uses the native `<dialog>` (focus trap,
-Esc to close) and radio inputs, so it is fully keyboard-accessible.
-
-**Progress** is saved in `localStorage` (`3dschool.progress`): tour done, best quiz score, attempts; a lab is **completed** when its
-quiz is passed. Landing cards and lab headers show status, with an overall bar and a two-step "reset progress". Stored data is
-**sanitised on load**, so hand-edited or corrupt values can't break the app.
-
-### Adding or editing content
-Everything above is data: add `tour*.json` / `quiz*.json` to a lesson folder and the tests validate it (valid actions, text in both
-languages, four distinct choices, answers in range, 3 questions). Arabic text lives in the `*.ar.json` files and `web/src/i18n/ar.json`.
+[MIT](LICENSE). All 3D content is generated procedurally in code (no third-party models or textures).

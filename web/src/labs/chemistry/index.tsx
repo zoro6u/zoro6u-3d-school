@@ -5,6 +5,7 @@ import { hasWebGL } from '../../landing/hasWebGL';
 import { useSettings } from '../../store/settings';
 import { chipLabel } from '../../teacher/chips';
 import { useRegisterScene } from '../../teacher/scene';
+import { CanvasBoundary } from '../../app/CanvasBoundary';
 import { LabShell } from '../LabShell';
 import { BalanceView } from './BalanceView';
 import { EnergyDiagram } from './EnergyDiagram';
@@ -157,13 +158,13 @@ function Lab() {
       {view === 'balance' ? (
         <BalanceView key={reaction.data.id} reaction={reaction} lang={lang} onWatch={() => { setView('reaction'); player.restart(); player.play(); }} />
       ) : (
-        <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_21rem]">
-          <div className="space-y-3">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_21rem]">
+          <div className="min-w-0 space-y-3">
             <div role="group" aria-label={t('chemistry.canvasLabel')} className="relative h-72 overflow-hidden rounded-xl border border-slate-700 bg-[#0b1220] sm:h-[26rem]" dir="ltr">
               {webgl && (
-                <Suspense fallback={null}>
+                <CanvasBoundary><Suspense fallback={null}>
                   <Scene3D key={reaction.data.id} player={player} lowGraphics={lowGraphics} reducedMotion={reducedMotion} />
-                </Suspense>
+                </Suspense></CanvasBoundary>
               )}
             </div>
 
@@ -208,7 +209,7 @@ function Lab() {
                     aria-label={t('chemistry.controls.jump', { n: i + 1, title: text.stages[s.id]?.title ?? s.id })}
                     className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs ${i === snap.stage ? 'border-orange-400 bg-orange-400/20 font-semibold text-orange-100' : 'border-slate-600 bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
                   >
-                    <span className="font-bold tabular-nums">{i + 1}</span>
+                    <span className="font-bold tabular-nums">{i + 1}</span>{' '}
                     <span className="hidden sm:inline">{text.stages[s.id]?.title}</span>
                   </button>
                 </li>
@@ -224,7 +225,7 @@ function Lab() {
             </section>
           </div>
 
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <section className="rounded-xl border border-slate-700 bg-slate-900 p-3" aria-labelledby="chem-en">
               <h3 id="chem-en" className="mb-2 font-semibold">{t('chemistry.energy.title')}</h3>
               <EnergyDiagram levels={player.energyLevels} quantitative={player.energyQuantitative} progress={player.progress} deltaH={reaction.data.deltaH ?? null} />

@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { Quality } from '../../core/Quality';
 import type { OscillatorEngine, PendulumSetup, Setup, SpringSetup } from './sim/engine';
 
 const ACCENT = '#38bdf8';
@@ -87,6 +88,7 @@ export default function Scene3D({ engine, setup, lowGraphics }: Scene3DProps) {
       <color attach="background" args={['#0b1220']} />
       <hemisphereLight args={['#e0f2fe', '#1e293b', 1.4]} />
       <directionalLight position={[2, 3, 4]} intensity={1.2} />
+      <Quality />
       {setup.mode === 'pendulum' ? <PendulumModel engine={engine} setup={setup} /> : <SpringModel engine={engine} setup={setup} />}
     </Canvas>
   );

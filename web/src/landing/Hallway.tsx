@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import type { LessonMeta, Subject } from '../core/lessons';
+import { Quality } from '../core/Quality';
 
 const HALL = { w: 12, h: 4, d: 16 };
 const DOOR_X: Record<Subject, number> = { biology: -3.6, physics: 0, chemistry: 3.6 };
@@ -144,6 +145,7 @@ export default function Hallway({ lessons, hovered, onHover, lowGraphics, reduce
         <Door key={l.id} lesson={l} active={hovered === l.subject} onHover={onHover} />
       ))}
       <Rig reducedMotion={reducedMotion} />
+      <Quality />
     </Canvas>
   );
 }

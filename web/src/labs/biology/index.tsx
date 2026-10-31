@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { lessonBySubject } from '../../core/lessons';
 import { hasWebGL } from '../../landing/hasWebGL';
 import { useSettings } from '../../store/settings';
+import { CanvasBoundary } from '../../app/CanvasBoundary';
 import { LabShell } from '../LabShell';
 import type { CameraCommand } from './CameraRig';
 import { organelles, specOf, type OrganelleId } from './config';
@@ -76,8 +77,8 @@ function Explorer() {
   const btnOn = `${btnBase} border-sky-400 bg-sky-400 font-semibold text-slate-900 hover:bg-sky-300`;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
-      <div className="space-y-2">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="min-w-0 space-y-2">
         <div
           role="group"
           aria-label={t('biology.canvasLabel')}
@@ -88,9 +89,9 @@ function Explorer() {
           dir="ltr"
         >
           {webgl && (
-            <Suspense fallback={null}>
+            <CanvasBoundary><Suspense fallback={null}>
               <Scene3D lowGraphics={lowGraphics} reducedMotion={reducedMotion} commands={commands} label={nameOf} />
-            </Suspense>
+            </Suspense></CanvasBoundary>
           )}
           <div className="absolute start-3 top-3 z-10 flex flex-wrap gap-2" dir={document.documentElement.dir}>
             <button className={cutaway ? btnOn : btn} aria-pressed={cutaway} onClick={() => setCutaway(!cutaway)}>
@@ -104,7 +105,7 @@ function Explorer() {
         <p className="text-xs text-slate-400">{t('biology.notToScale')}</p>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex min-w-0 flex-col gap-4">
         <InfoPanel selected={selected} />
         <nav aria-labelledby="bio-list" className="rounded-xl border border-slate-700 bg-slate-900 p-3">
           <h3 id="bio-list" className="mb-2 font-semibold">{t('biology.listTitle')}</h3>

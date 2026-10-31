@@ -1,0 +1,31 @@
+# Fly.io config for the API.  fly launch --no-deploy --copy-config   then   fly secrets set ANTHROPIC_API_KEY=...   then   fly deploy
+app = "3d-school-api" # change: app names are global
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8000"
+  ANTHROPIC_MODEL = "claude-sonnet-5-5"
+  ANTHROPIC_EFFORT = "low"
+  TRUST_PROXY = "true"
+  # CORS_ORIGINS is set with:  fly secrets set CORS_ORIGINS=https://your-app.vercel.app
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"   # scale to zero when idle (the guided tours still work while it sleeps)
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/api/health"
+    interval = "30s"
+    timeout = "4s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

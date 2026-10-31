@@ -198,7 +198,7 @@
       "speed": "Speed",
       "scrub": "Timeline",
       "stageOf": "Step {{n}} of {{total}}",
-      "jump": "Go to step {{n}}: {{title}}"
+      "jump": "Go to step {{n}} {{title}}"
     },
     "labelReactants": "Reactants",
     "labelProducts": "Products",
@@ -380,5 +380,16 @@
     "resetYes": "Yes, erase",
     "resetNo": "Cancel",
     "bar": "Overall progress"
+  },
+  "errors": {
+    "page": "Something went wrong on this page.",
+    "canvas": "The 3D view couldn't start on this device.",
+    "useLow": "Use low graphics",
+    "retry": "Try again"
+  },
+  "quality": {
+    "switched": "The animation was running slowly, so we switched to Low graphics.",
+    "undo": "Switch back",
+    "ok": "OK"
   }
 }

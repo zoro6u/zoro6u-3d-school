@@ -164,7 +164,7 @@ export function LiveChart({ engine, title, timeLabel, unit, series, range, lowGr
   }, [engine, series, range, lowGraphics, timeLabel, unit]);
 
   return (
-    <figure className="rounded-xl border border-slate-700 bg-slate-900 p-3">
+    <figure className="m-0 min-w-0 rounded-xl border border-slate-700 bg-slate-900 p-3">
       <figcaption className="mb-1 flex flex-wrap items-center justify-between gap-2 text-sm font-semibold">
         <span>{title}</span>
         <ul className="flex flex-wrap gap-3 text-xs font-normal">

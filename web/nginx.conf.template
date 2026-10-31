@@ -1,0 +1,56 @@
+# Served by the web image. ${API_UPSTREAM} is substituted at container start.
+server {
+  listen 80;
+  server_name _;
+  root /usr/share/nginx/html;
+  index index.html;
+
+  # nginx's default mime.types doesn't know .webmanifest; without this the PWA manifest is served as octet-stream.
+  types { application/manifest+json webmanifest; }
+  include /etc/nginx/mime.types;
+
+  gzip on;
+  gzip_types text/css application/javascript application/json image/svg+xml application/manifest+json;
+  gzip_min_length 1024;
+
+  # Security headers. 'unsafe-inline' for styles only: React/R3F set inline style attributes; no inline scripts are allowed.
+  include /etc/nginx/security-headers.conf;
+
+  # Hashed build assets never change: cache for a year.
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    include /etc/nginx/security-headers.conf;
+  }
+
+  # The service worker and the app shell must always be revalidated, or updates never reach users.
+  location = /sw.js {
+    add_header Cache-Control "no-cache";
+    include /etc/nginx/security-headers.conf;
+  }
+  location = /index.html {
+    add_header Cache-Control "no-cache";
+    include /etc/nginx/security-headers.conf;
+  }
+
+  # API: streaming (SSE) must not be buffered, or the teacher's words arrive in one lump.
+  location /api/ {
+    proxy_pass ${API_UPSTREAM};
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_buffering off;
+    proxy_cache off;
+    proxy_read_timeout 120s;
+    gzip off;
+    include /etc/nginx/security-headers.conf;
+  }
+
+  # Single-page app: unknown paths get the shell (the router shows the 404).
+  location / {
+    try_files $uri $uri/ /index.html;
+    add_header Cache-Control "no-cache";
+    include /etc/nginx/security-headers.conf;
+  }
+}

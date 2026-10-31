@@ -1,0 +1,24 @@
+# Full stack on one machine:  docker compose up --build   →  http://localhost:8080
+# Set ANTHROPIC_API_KEY in a .env file next to this one (or leave it empty: tours and quizzes still work offline).
+services:
+  api:
+    build: .
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5-5}
+      ANTHROPIC_EFFORT: ${ANTHROPIC_EFFORT:-low}
+      MOCK_LLM: ${MOCK_LLM:-false}
+      CORS_ORIGINS: http://localhost:8080
+      TRUST_PROXY: "true"
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    environment:
+      API_UPSTREAM: http://api:8000
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    restart: unless-stopped

@@ -1,6 +1,7 @@
 import type { MutableRefObject } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useMemo } from 'react';
+import { Quality } from '../../core/Quality';
 import { CameraRig, type CameraCommand } from './CameraRig';
 import { Cell } from './Cell';
 import type { OrganelleId } from './config';
@@ -32,6 +33,7 @@ export default function Scene3D({ lowGraphics, reducedMotion, commands, label }:
       <hemisphereLight args={['#f0f9ff', '#1e293b', 1.5]} />
       <directionalLight position={[4, 6, 5]} intensity={1.6} />
       {!lowGraphics && <directionalLight position={[-5, -2, -4]} intensity={0.6} color="#a5b4fc" />}
+      <Quality />
       <Cell layout={layout} detail={detail} reducedMotion={reducedMotion} label={label} />
       <CameraRig selected={selected} focus={layout.focus} resetNonce={resetNonce} reducedMotion={reducedMotion} commands={commands} />
     </Canvas>

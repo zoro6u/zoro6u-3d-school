@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { Quality } from '../../core/Quality';
 import { elementDef } from './engine/elements';
 import { mulberry32 } from '../biology/layout';
 import type { ReactionPlayer } from './engine/player';
@@ -200,6 +201,7 @@ export default function Scene3D({ player, lowGraphics, reducedMotion }: Scene3DP
       <color attach="background" args={['#0b1220']} />
       <hemisphereLight args={['#e0f2fe', '#1e293b', 1.3]} />
       <directionalLight position={[4, 6, 6]} intensity={1.8} />
+      <Quality />
       <Molecules player={player} lowGraphics={lowGraphics} reducedMotion={reducedMotion} />
       <CameraFit player={player} />
       <OrbitControls makeDefault enablePan={false} enableDamping={!reducedMotion} minDistance={3} maxDistance={40} />

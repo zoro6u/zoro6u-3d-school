@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { lessons, type Subject } from '../core/lessons';
 import { useSettings } from '../store/settings';
 import { hasWebGL } from './hasWebGL';
+import { CanvasBoundary } from '../app/CanvasBoundary';
 import { LessonBadge } from '../app/LessonBadge';
 import { quizzes } from '../quiz/quizData';
 import { lessonStatus, useProgress } from '../store/progress';
@@ -27,14 +28,14 @@ export function Landing() {
       <section className="relative min-h-[46vh] flex-1 bg-slate-900" aria-label={t('landing.canvasLabel')}>
         {webgl ? (
           <div className="absolute inset-0" role="img" aria-label={t('landing.canvasLabel')}>
-            <Suspense fallback={null}>
+            <CanvasBoundary><Suspense fallback={null}>
               <Hallway lessons={lessons} hovered={hovered} onHover={setHovered} lowGraphics={lowGraphics} reducedMotion={reducedMotion} />
-            </Suspense>
+            </Suspense></CanvasBoundary>
           </div>
         ) : (
           <p className="p-6 text-center text-slate-300">{t('landing.noWebgl')}</p>
         )}
-        <div className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-900/90 to-transparent p-5 text-center">
+        <div className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/95 via-slate-900/75 to-transparent p-5 pb-14 text-center [text-shadow:0_2px_14px_#020617]">
           <h1 className="text-2xl font-extrabold sm:text-4xl">{t('app.name')}</h1>
           <p className="mx-auto mt-1 max-w-xl text-sm text-slate-300 sm:text-base">{t('app.tagline')}</p>
         </div>
