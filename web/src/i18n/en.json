@@ -1,0 +1,34 @@
+{
+  "app": { "name": "3D School", "tagline": "Learn science by exploring it in 3D, with a tutor beside you." },
+  "nav": { "home": "Home", "back": "Back to school", "skip": "Skip to content" },
+  "settings": {
+    "language": "Language",
+    "lowGraphics": "Low graphics",
+    "lowGraphicsHint": "Lighter 3D for slower phones",
+    "reducedMotion": "Reduce motion",
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "landing": {
+    "choose": "Choose a lab",
+    "hint": "Pick a door in the hallway, or use the cards below.",
+    "enter": "Enter lab",
+    "noWebgl": "Your browser can't show the 3D hallway, but every lab is still available below.",
+    "canvasLabel": "A 3D school hallway with three lab doors: biology, physics and chemistry."
+  },
+  "subjects": {
+    "biology": { "name": "Biology", "lab": "Animal Cell", "blurb": "Fly inside a cell and meet its organelles." },
+    "physics": { "name": "Physics", "lab": "Pendulum & Spring", "blurb": "Change gravity, length and mass, then watch the real simulation respond." },
+    "chemistry": { "name": "Chemistry", "lab": "Making Water", "blurb": "Watch 2H₂ + O₂ → 2H₂O happen, one step at a time." }
+  },
+  "teachers": {
+    "nour": { "name": "Dr. Nour", "role": "Biology teacher" },
+    "karim": { "name": "Prof. Karim", "role": "Physics teacher" },
+    "layla": { "name": "Ms. Layla", "role": "Chemistry teacher" }
+  },
+  "lab": {
+    "comingSoon": "This lab is being built.",
+    "meetTeacher": "Your teacher: {{name}}",
+    "notFound": "We couldn't find that lab."
+  }
+}

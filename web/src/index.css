@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0f172a;
+  --color-bio: #22c55e;
+  --color-phys: #38bdf8;
+  --color-chem: #f97316;
+  --font-sans: system-ui, 'Segoe UI', Roboto, 'Noto Sans Arabic', 'Noto Naskh Arabic', Tahoma, sans-serif;
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; background: var(--color-ink); color: #e2e8f0; font-family: var(--font-sans); }
+
+/* Visible keyboard focus everywhere */
+:focus-visible { outline: 3px solid #fde047; outline-offset: 2px; }
+
+/* Reduced motion: set by the app (user toggle) or the OS preference */
+html[data-reduced-motion='true'] *, html[data-reduced-motion='true'] *::before, html[data-reduced-motion='true'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
