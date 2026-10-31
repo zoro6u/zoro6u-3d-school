@@ -120,5 +120,65 @@
       "springIdeal": "For an ideal spring (Hooke's law, F = −kx) the period T = 2π√(m/k) does not depend on how far you stretch it. A heavier mass or a softer spring gives a slower oscillation.",
       "energy": "With no damping, kinetic and potential energy trade off while the total stays constant. With damping, energy is lost as heat and the total decays."
     }
+  },
+  "biology": {
+    "hint": "Drag to rotate, scroll or pinch to zoom, click an organelle to focus on it.",
+    "keys": "Keyboard: arrow keys rotate, + and − zoom, Esc clears the selection.",
+    "notToScale": "Simplified model, not to scale: real organelles are far smaller and more crowded.",
+    "cutaway": "Cutaway",
+    "resetView": "Reset view",
+    "listTitle": "Parts of the cell",
+    "chooseOne": "Select a part of the cell to learn what it does.",
+    "functionLabel": "What it does",
+    "factLabel": "Did you know?",
+    "selected": "Selected: {{name}}",
+    "canvasLabel": "Interactive 3D animal cell. Use the list of cell parts to explore with the keyboard.",
+    "organelles": {
+      "nucleus": {
+        "name": "Nucleus",
+        "function": "The nucleus stores the cell's DNA, packed into chromosomes, and controls the cell by deciding which genes are used. It is wrapped in a double membrane with pores that let messages (mRNA) out. Inside, the nucleolus builds parts of ribosomes.",
+        "fact": "Almost every human cell has one nucleus, but mature red blood cells have none."
+      },
+      "mitochondria": {
+        "name": "Mitochondria",
+        "function": "Mitochondria release energy from food. Through aerobic respiration they make most of the cell's ATP, the molecule cells use as energy currency. Their inner membrane is folded into cristae, which gives more surface area for the reactions.",
+        "fact": "Mitochondria have their own small circular DNA. In humans it is inherited almost entirely from the mother."
+      },
+      "ribosomes": {
+        "name": "Ribosomes",
+        "function": "Ribosomes build proteins. They read the instructions carried by mRNA and join amino acids together in the right order. Some float freely in the cytoplasm and some are attached to the rough ER. They have no membrane around them.",
+        "fact": "A ribosome adds only a few amino acids per second, so a cell uses thousands of them at once."
+      },
+      "roughEr": {
+        "name": "Rough endoplasmic reticulum",
+        "function": "The rough ER is a network of flat, folded sacs covered in ribosomes. Proteins made there are threaded inside, folded, and sent on, often to the Golgi apparatus, for use in the membrane or for export from the cell.",
+        "fact": "Cells that export lots of protein, like antibody-making white blood cells, have especially large rough ER."
+      },
+      "smoothEr": {
+        "name": "Smooth endoplasmic reticulum",
+        "function": "The smooth ER is a network of tubes with no ribosomes. It makes lipids such as phospholipids and steroid hormones, helps break down harmful substances, and in muscle cells stores calcium.",
+        "fact": "Liver cells have a lot of smooth ER because it helps detoxify drugs and alcohol."
+      },
+      "golgi": {
+        "name": "Golgi apparatus",
+        "function": "The Golgi apparatus is a stack of flattened sacs that works like a post office. It modifies proteins and lipids that arrive from the ER, sorts them, and packs them into vesicles that deliver them to their destination.",
+        "fact": "It is named after Camillo Golgi, who first described it in 1898."
+      },
+      "lysosomes": {
+        "name": "Lysosomes",
+        "function": "Lysosomes are small sacs of digestive enzymes. They break down worn-out organelles, food particles and germs that the cell has taken in, so the cell can recycle the building blocks.",
+        "fact": "The inside of a lysosome is acidic, around pH 4.5 to 5, while the cytosol is close to neutral (about pH 7.2)."
+      },
+      "membrane": {
+        "name": "Cell membrane",
+        "function": "The cell membrane is a double layer of phospholipids with proteins embedded in it. It is selectively permeable: it controls what enters and leaves the cell and lets the cell detect signals from outside. Animal cells have no cell wall outside it.",
+        "fact": "It is only about 7 to 10 nanometres thick, thousands of times thinner than a sheet of paper."
+      },
+      "cytoplasm": {
+        "name": "Cytoplasm",
+        "function": "The cytoplasm is everything inside the membrane except the nucleus. It is a jelly-like fluid, the cytosol, which is mostly water with dissolved salts and molecules. Many reactions, such as the first steps of respiration, happen here, and it holds the organelles in place.",
+        "fact": "A network of protein fibres called the cytoskeleton runs through the cytoplasm. It gives the cell its shape and lets organelles move."
+      }
+    }
   }
 }

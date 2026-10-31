@@ -47,7 +47,7 @@ export function Landing() {
                 style={{ borderColor: l.accent }}
                 className="block h-full rounded-xl border-2 bg-slate-900 p-4 transition-colors hover:bg-slate-800"
               >
-                <span className="text-sm font-semibold uppercase tracking-wide" style={{ color: l.accent }}>{t(`subjects.${l.subject}.name`)}</span>
+                <span className="text-sm font-semibold uppercase tracking-wide rtl:normal-case rtl:tracking-normal" style={{ color: l.accent }}>{t(`subjects.${l.subject}.name`)}</span>
                 <span className="mt-1 block text-lg font-bold">{t(`subjects.${l.subject}.lab`)}</span>
                 <span className="mt-1 block text-sm text-slate-300">{t(`subjects.${l.subject}.blurb`)}</span>
                 <span className="mt-3 block text-sm font-medium text-sky-300">{t('landing.enter')} <span aria-hidden className="inline-block rtl:rotate-180">→</span></span>

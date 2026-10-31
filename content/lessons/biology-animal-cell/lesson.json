@@ -4,5 +4,55 @@
   "route": "/lab/biology",
   "accent": "#22c55e",
   "teacher": "nour",
-  "status": "planned"
+  "status": "ready",
+  "biology": {
+    "cellRadius": 3,
+    "organelles": [
+      {
+        "id": "nucleus",
+        "color": "#a78bfa",
+        "focusDistance": 3.2
+      },
+      {
+        "id": "mitochondria",
+        "color": "#f87171",
+        "focusDistance": 2.5
+      },
+      {
+        "id": "ribosomes",
+        "color": "#22d3ee",
+        "focusDistance": 3.6
+      },
+      {
+        "id": "roughEr",
+        "color": "#60a5fa",
+        "focusDistance": 3.2
+      },
+      {
+        "id": "smoothEr",
+        "color": "#34d399",
+        "focusDistance": 3.0
+      },
+      {
+        "id": "golgi",
+        "color": "#fbbf24",
+        "focusDistance": 3.0
+      },
+      {
+        "id": "lysosomes",
+        "color": "#fb923c",
+        "focusDistance": 2.2
+      },
+      {
+        "id": "membrane",
+        "color": "#f472b6",
+        "focusDistance": 8.5
+      },
+      {
+        "id": "cytoplasm",
+        "color": "#fde68a",
+        "focusDistance": 4.2
+      }
+    ]
+  }
 }

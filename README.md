@@ -2,7 +2,7 @@
 
 Interactive Biology, Physics and Chemistry labs in 3D, with AI "teacher" characters. English + Arabic (RTL).
 
-> **Status:** Phase 2 of 7 — landing hallway + Physics lab (pendulum & mass–spring) done. Biology and Chemistry labs are placeholders.
+> **Status:** Phase 3 of 7 — landing hallway, Physics lab and Biology lab done. Chemistry is a placeholder.
 
 ## Run it
 
@@ -44,3 +44,18 @@ _Placeholder — to be recorded on a phone._
 - Slider ranges, defaults and gravity presets (Earth 9.81, Moon 1.62, Mars 3.71 m/s²) live in
   `content/lessons/physics-oscillations/lesson.json`.
 - 28 unit tests check the maths against textbook values, energy conservation, mass-independence of the period, etc.
+
+## Biology lab (Phase 3)
+
+- Procedural animal cell (no external models): nucleus with chromatin + nucleolus, mitochondria with cristae, rough ER sheets
+  with ribosomes on them, smooth ER tubes, Golgi stack, lysosomes, cell membrane and cytoplasm.
+- Orbit / zoom / pinch; click an organelle (or pick it from the list) and the camera flies to it, it glows, and the
+  info panel shows its function and a fact. Keyboard: arrows rotate, `+`/`−` zoom, `Esc` clears.
+- **Cutaway** removes a wedge of the membrane and cytoplasm with GPU clipping planes (organelles stay whole).
+  Raycasting ignores clipping planes, so clicks inside the removed wedge are filtered out in code (`pick.ts`, tested).
+- Ribosomes (~240) and lysosomes are `InstancedMesh`; one shared material per organelle makes highlighting trivial.
+  "Low graphics" halves the ribosome count and mesh segment counts.
+- Layout is deterministic (seeded PRNG) and unit-tested: nothing pokes out of the membrane or overlaps another organelle.
+- Organelle names/functions/facts are in `web/src/i18n/{en,ar}.json` under `biology.organelles.*`;
+  colours and camera framing are in `content/lessons/biology-animal-cell/lesson.json`.
+- The model is schematic, not to scale (the UI says so).
