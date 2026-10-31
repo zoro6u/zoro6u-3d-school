@@ -252,5 +252,65 @@
     "mechanismTitle": "About this model",
     "caption": "Description of the current step",
     "canvasLabel": "3D ball-and-stick animation of the reaction. Use the step buttons and the timeline to control it."
+  },
+  "teacher": {
+    "ask": "Ask {{name}}",
+    "panelLabel": "Chat with {{name}}",
+    "close": "Close chat",
+    "transcript": "Conversation",
+    "inputLabel": "Message to {{name}}",
+    "placeholder": "Ask a question…",
+    "send": "Send",
+    "stop": "Stop",
+    "clear": "Clear conversation",
+    "voiceOn": "Teacher voice is on (click to mute)",
+    "voiceOff": "Teacher voice is off (click to turn on)",
+    "mic": "Speak your question",
+    "micStop": "Stop listening",
+    "micError": "Voice input isn't available right now. You can type instead.",
+    "noVoice": "This browser has no voice for this language, so the teacher's words appear as captions only.",
+    "offline": "The AI teacher is offline right now (no server connection or API key). The lab itself works as usual.",
+    "mode": {
+      "label": "Teaching style",
+      "explain": "Explain",
+      "socratic": "Ask me"
+    },
+    "welcome": {
+      "nour": "Hi, I'm Dr. Nour! Click on any part of the cell, or ask me anything about what you see.",
+      "karim": "Welcome. I'm Prof. Karim. Change a number, watch what happens, and ask me why. That's how physics works.",
+      "layla": "Hello, I'm Ms. Layla! Atoms are about to break up and find new partners. Ask me anything as it happens."
+    },
+    "suggestions": {
+      "biology": [
+        "What am I looking at?",
+        "Show me the mitochondria",
+        "Open the cell up so I can see inside"
+      ],
+      "physics": [
+        "What happens on the Moon?",
+        "Show me a big swing",
+        "Why doesn't mass change the period?"
+      ],
+      "chemistry": [
+        "Walk me through the reaction",
+        "Show me where the bonds break",
+        "Why is it balanced?"
+      ]
+    },
+    "chips": {
+      "focus": "Focus: {{name}}",
+      "step": "Step {{n}}",
+      "reset": "Reset"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "network": "I couldn't reach the teacher service. Check your connection and try again.",
+      "busy": "The teacher is busy right now. Try again in a moment.",
+      "llm_unavailable": "The teacher service is having trouble. Please try again.",
+      "refusal": "I can't help with that one. Let's get back to the science in the lab!",
+      "truncated": "My answer got cut off. Could you ask again?",
+      "rate_limited": "You're asking very quickly. Please wait about {{seconds}} seconds.",
+      "too_long": "That message is too long. Please shorten it."
+    }
   }
 }

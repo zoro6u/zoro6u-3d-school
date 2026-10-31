@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { LessonMeta } from '../core/lessons';
+import { TeacherPanel } from '../teacher/TeacherPanel';
 
 /** Common frame for every lab: header, teacher intro, and the lab body. */
 export function LabShell({ lesson, children }: { lesson: LessonMeta; children?: ReactNode }) {
@@ -16,6 +17,7 @@ export function LabShell({ lesson, children }: { lesson: LessonMeta; children?: 
         {t(`subjects.${lesson.subject}.lab`)}
       </h1>
       <p className="mt-1 text-slate-300">{t('lab.meetTeacher', { name: teacher })} · {t(`teachers.${lesson.teacher}.role`)}</p>
+      <TeacherPanel lesson={lesson} />
       {children ? (
         <div className="mt-5">{children}</div>
       ) : (

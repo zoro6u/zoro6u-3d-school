@@ -54,5 +54,19 @@
         "focusDistance": 4.2
       }
     ]
+  },
+  "teacherTools": {
+    "set_param": {
+      "params": {
+        "cutaway": {
+          "type": "boolean",
+          "description": "true slices a wedge out of the cell so the inside is visible"
+        }
+      }
+    },
+    "focus_object": {
+      "idsRef": "biology.organelles"
+    },
+    "reset_scene": {}
   }
 }

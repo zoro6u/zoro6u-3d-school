@@ -1,8 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessonBySubject } from '../../core/lessons';
 import { hasWebGL } from '../../landing/hasWebGL';
 import { useSettings } from '../../store/settings';
+import { chipLabel } from '../../teacher/chips';
+import { useRegisterScene } from '../../teacher/scene';
 import { LabShell } from '../LabShell';
 import { BalanceView } from './BalanceView';
 import { EnergyDiagram } from './EnergyDiagram';
@@ -78,6 +80,47 @@ function Lab() {
   const accounting = useMemo(() => bondAccounting(reaction.data), [reaction]);
   const stage = reaction.data.stages[snap.stage]!;
   const stageText = text.stages[stage.id];
+  const latest = useRef({ reaction, view, snap, player });
+  latest.current = { reaction, view, snap, player };
+  useRegisterScene('chemistry', {
+    getState: () => {
+      const { reaction: r, view: v, snap: sn, player: pl } = latest.current;
+      const st = r.data.stages[sn.stage]!;
+      const side = (s: 'reactants' | 'products') => r.data.equation[s].map((t) => `${t.coeff > 1 ? t.coeff : ''}${r.data.species[t.species]!.formula}`).join(' + ');
+      return {
+        lab: 'chemistry',
+        reaction_id: r.data.id,
+        equation: `${side('reactants')} → ${side('products')}`,
+        view: v,
+        step_index: sn.stage,
+        step_count: sn.stageCount,
+        step_id: st.id,
+        step_title: r.text.en.stages[st.id]?.title ?? st.id,
+        playing: sn.playing,
+        glow: Number(pl.glow.toFixed(2)),
+        delta_H_kJ: r.data.deltaH ?? null,
+      };
+    },
+    apply: (a) => {
+      const label = chipLabel(a);
+      const { player: pl } = latest.current;
+      if (a.tool === 'play_reaction_step') {
+        setView('reaction');
+        pl.goToStage(Math.min(a.n, pl.stageCount - 1));
+      } else if (a.tool === 'set_param' && a.name === 'view' && (a.value === 'reaction' || a.value === 'balance')) setView(a.value);
+      else if (a.tool === 'set_param' && a.name === 'playing' && typeof a.value === 'boolean') {
+        if (a.value) {
+          setView('reaction');
+          pl.play();
+        } else pl.pause();
+      } else if (a.tool === 'reset_scene') {
+        setView('reaction');
+        pl.restart();
+      } else return { ok: false, label };
+      return { ok: true, label };
+    },
+  });
+
   const usedElements = useMemo(() => [...new Set(reaction.data.atoms.map((a) => a.el))], [reaction]);
 
   const btn = 'rounded-lg border border-slate-600 bg-slate-800 px-3 py-1.5 text-sm font-medium hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40';

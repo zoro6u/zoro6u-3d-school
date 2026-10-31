@@ -6,7 +6,10 @@ import { useSettings } from '../../store/settings';
 import { LabShell } from '../LabShell';
 import type { CameraCommand } from './CameraRig';
 import { organelles, specOf, type OrganelleId } from './config';
-import { useBiology } from './store';
+import { chipLabel } from '../../teacher/chips';
+import { useRegisterScene } from '../../teacher/scene';
+import { isOrganelleId } from './config';
+import { biologySceneState, useBiology } from './store';
 
 const Scene3D = lazy(() => import('./Scene3D'));
 const webgl = hasWebGL();
@@ -27,6 +30,20 @@ function Explorer() {
   const reducedMotion = useSettings((s) => s.reducedMotion);
   const { selected, cutaway, select, setCutaway, resetView } = useBiology();
   const commands = useRef<CameraCommand[]>([]);
+
+  useRegisterScene('biology', {
+    getState: () => ({ ...biologySceneState(useBiology.getState()), organelle_ids: organelles.map((o) => o.id) }),
+    apply: (a) => {
+      const st = useBiology.getState();
+      if (a.tool === 'focus_object' && isOrganelleId(a.id)) st.select(a.id);
+      else if (a.tool === 'set_param' && a.name === 'cutaway' && typeof a.value === 'boolean') st.setCutaway(a.value);
+      else if (a.tool === 'reset_scene') {
+        st.resetView();
+        st.setCutaway(false);
+      } else return { ok: false, label: chipLabel(a) };
+      return { ok: true, label: chipLabel(a) };
+    },
+  });
 
   // Start every visit from a clean scene.
   useEffect(() => () => useBiology.setState({ selected: null, cutaway: false }), []);

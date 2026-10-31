@@ -72,5 +72,81 @@
         "default": 0
       }
     }
+  },
+  "teacherTools": {
+    "set_param": {
+      "params": {
+        "experiment": {
+          "type": "enum",
+          "values": [
+            "pendulum",
+            "spring"
+          ],
+          "description": "which experiment is shown"
+        },
+        "gravity": {
+          "type": "enum",
+          "values": [
+            "earth",
+            "moon",
+            "mars"
+          ],
+          "description": "gravity preset for the pendulum"
+        },
+        "pendulum_length": {
+          "type": "number",
+          "ref": "physics.pendulum.length",
+          "description": "pendulum length",
+          "unit": "m"
+        },
+        "pendulum_mass": {
+          "type": "number",
+          "ref": "physics.pendulum.mass",
+          "description": "pendulum bob mass",
+          "unit": "kg"
+        },
+        "pendulum_angle_deg": {
+          "type": "number",
+          "ref": "physics.pendulum.angleDeg",
+          "description": "pendulum starting angle",
+          "unit": "degrees"
+        },
+        "pendulum_damping": {
+          "type": "number",
+          "ref": "physics.pendulum.damping",
+          "description": "pendulum damping",
+          "unit": "N·m·s"
+        },
+        "spring_k": {
+          "type": "number",
+          "ref": "physics.spring.k",
+          "description": "spring constant",
+          "unit": "N/m"
+        },
+        "spring_mass": {
+          "type": "number",
+          "ref": "physics.spring.mass",
+          "description": "block mass",
+          "unit": "kg"
+        },
+        "spring_displacement": {
+          "type": "number",
+          "ref": "physics.spring.displacement",
+          "description": "starting stretch",
+          "unit": "m"
+        },
+        "spring_damping": {
+          "type": "number",
+          "ref": "physics.spring.damping",
+          "description": "spring damping",
+          "unit": "N·s/m"
+        },
+        "running": {
+          "type": "boolean",
+          "description": "true plays the simulation, false pauses it"
+        }
+      }
+    },
+    "reset_scene": {}
   }
 }

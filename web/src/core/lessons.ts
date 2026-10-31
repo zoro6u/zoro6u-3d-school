@@ -22,6 +22,11 @@ export const lessons: LessonMeta[] = Object.values(modules).sort(
   (a, b) => ORDER.indexOf(a.subject) - ORDER.indexOf(b.subject),
 );
 
+/** Full lesson JSON by lesson id (includes the lab data and the teacher tool manifest). */
+export const lessonRaws: Record<string, Record<string, unknown>> = Object.fromEntries(
+  Object.values(modules).map((m) => [m.id, m as unknown as Record<string, unknown>]),
+);
+
 export function lessonBySubject(subject: Subject): LessonMeta | undefined {
   return lessons.find((l) => l.subject === subject);
 }

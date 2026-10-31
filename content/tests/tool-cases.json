@@ -1,0 +1,543 @@
+{
+ "_comment": "Shared by the Python (api/tests) and TypeScript (web/src) test suites so both validators agree.",
+ "lessons": {
+  "physics": "physics-oscillations",
+  "biology": "biology-animal-cell",
+  "chemistry": "chemistry-water-synthesis"
+ },
+ "cases": [
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity",
+    "value": "moon"
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "gravity",
+    "value": "moon"
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "experiment",
+    "value": "spring"
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "experiment",
+    "value": "spring"
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": 1.5
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "pendulum_length",
+    "value": 1.5
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": 0.2
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "pendulum_length",
+    "value": 0.2
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": 2.5
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "pendulum_length",
+    "value": 2.5
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_angle_deg",
+    "value": 90
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "pendulum_angle_deg",
+    "value": 90
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "spring_k",
+    "value": 100
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "spring_k",
+    "value": 100
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "running",
+    "value": false
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "running",
+    "value": false
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "reset_scene",
+   "args": {},
+   "ok": true,
+   "action": {
+    "tool": "reset_scene"
+   }
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": 3
+   },
+   "ok": false,
+   "why": "above max"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": 0.1
+   },
+   "ok": false,
+   "why": "below min"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": "1.5"
+   },
+   "ok": false,
+   "why": "number given as string"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_length",
+    "value": true
+   },
+   "ok": false,
+   "why": "boolean is not a number"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "pendulum_angle_deg",
+    "value": 180
+   },
+   "ok": false,
+   "why": "above max"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "spring_k",
+    "value": 101
+   },
+   "ok": false,
+   "why": "above max"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity",
+    "value": "jupiter"
+   },
+   "ok": false,
+   "why": "not in enum"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity",
+    "value": 9.81
+   },
+   "ok": false,
+   "why": "enum expects string"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "foo",
+    "value": 1
+   },
+   "ok": false,
+   "why": "unknown param"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "running",
+    "value": "yes"
+   },
+   "ok": false,
+   "why": "boolean expects bool"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "running",
+    "value": 1
+   },
+   "ok": false,
+   "why": "boolean expects bool, not int"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity"
+   },
+   "ok": false,
+   "why": "missing value"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "value": 1
+   },
+   "ok": false,
+   "why": "missing name"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity",
+    "value": "moon",
+    "extra": 1
+   },
+   "ok": false,
+   "why": "unexpected key"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "set_param",
+   "args": {
+    "name": [
+     "gravity"
+    ],
+    "value": "moon"
+   },
+   "ok": false,
+   "why": "name must be a string"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "reset_scene",
+   "args": {
+    "x": 1
+   },
+   "ok": false,
+   "why": "unexpected key"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "focus_object",
+   "args": {
+    "id": "nucleus"
+   },
+   "ok": false,
+   "why": "tool not available in this lesson"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 1
+   },
+   "ok": false,
+   "why": "tool not available in this lesson"
+  },
+  {
+   "lesson": "physics-oscillations",
+   "tool": "delete_everything",
+   "args": {},
+   "ok": false,
+   "why": "unknown tool"
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "focus_object",
+   "args": {
+    "id": "mitochondria"
+   },
+   "ok": true,
+   "action": {
+    "tool": "focus_object",
+    "id": "mitochondria"
+   }
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "focus_object",
+   "args": {
+    "id": "roughEr"
+   },
+   "ok": true,
+   "action": {
+    "tool": "focus_object",
+    "id": "roughEr"
+   }
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "set_param",
+   "args": {
+    "name": "cutaway",
+    "value": true
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "cutaway",
+    "value": true
+   }
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "reset_scene",
+   "args": {},
+   "ok": true,
+   "action": {
+    "tool": "reset_scene"
+   }
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "focus_object",
+   "args": {
+    "id": "chloroplast"
+   },
+   "ok": false,
+   "why": "not an organelle in this lab"
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "focus_object",
+   "args": {
+    "id": "Nucleus"
+   },
+   "ok": false,
+   "why": "ids are case-sensitive"
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "focus_object",
+   "args": {},
+   "ok": false,
+   "why": "missing id"
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "set_param",
+   "args": {
+    "name": "cutaway",
+    "value": 1
+   },
+   "ok": false,
+   "why": "boolean expects bool"
+  },
+  {
+   "lesson": "biology-animal-cell",
+   "tool": "set_param",
+   "args": {
+    "name": "gravity",
+    "value": "moon"
+   },
+   "ok": false,
+   "why": "param not in this lesson"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 2
+   },
+   "ok": true,
+   "action": {
+    "tool": "play_reaction_step",
+    "n": 2
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 0
+   },
+   "ok": true,
+   "action": {
+    "tool": "play_reaction_step",
+    "n": 0
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 4.0
+   },
+   "ok": true,
+   "action": {
+    "tool": "play_reaction_step",
+    "n": 4
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "set_param",
+   "args": {
+    "name": "view",
+    "value": "balance"
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "view",
+    "value": "balance"
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "set_param",
+   "args": {
+    "name": "playing",
+    "value": false
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "playing",
+    "value": false
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "reset_scene",
+   "args": {},
+   "ok": true,
+   "action": {
+    "tool": "reset_scene"
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 2.5
+   },
+   "ok": false,
+   "why": "must be an integer"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": -1
+   },
+   "ok": false,
+   "why": "below min"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": 10
+   },
+   "ok": false,
+   "why": "above max"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {
+    "n": "2"
+   },
+   "ok": false,
+   "why": "string, not integer"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "play_reaction_step",
+   "args": {},
+   "ok": false,
+   "why": "missing n"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "set_param",
+   "args": {
+    "name": "view",
+    "value": "table"
+   },
+   "ok": false,
+   "why": "not in enum"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "focus_object",
+   "args": {
+    "id": "nucleus"
+   },
+   "ok": false,
+   "why": "tool not available in this lesson"
+  }
+ ]
+}

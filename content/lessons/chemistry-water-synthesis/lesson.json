@@ -4,5 +4,29 @@
   "route": "/lab/chemistry",
   "accent": "#f97316",
   "teacher": "layla",
-  "status": "planned"
+  "status": "planned",
+  "teacherTools": {
+    "set_param": {
+      "params": {
+        "view": {
+          "type": "enum",
+          "values": [
+            "reaction",
+            "balance"
+          ],
+          "description": "animation view or the atom-balancing view"
+        },
+        "playing": {
+          "type": "boolean",
+          "description": "true plays the animation, false pauses it"
+        }
+      }
+    },
+    "play_reaction_step": {
+      "min": 0,
+      "max": 9,
+      "description": "jump to stage n (0 = first stage); stages beyond the reaction's last one stop at the last stage"
+    },
+    "reset_scene": {}
+  }
 }

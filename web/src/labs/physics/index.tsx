@@ -1,8 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { lessonBySubject } from '../../core/lessons';
 import { hasWebGL } from '../../landing/hasWebGL';
 import { useSettings } from '../../store/settings';
+import { chipLabel } from '../../teacher/chips';
+import { useRegisterScene } from '../../teacher/scene';
 import { LabShell } from '../LabShell';
 import { clampTo, defaultSetup, physicsConfig } from './config';
 import { Explainer } from './Explainer';
@@ -11,6 +13,7 @@ import { LiveChart, type ChartSeries } from './LiveChart';
 import { Readouts } from './Readouts';
 import { OscillatorEngine, type PendulumSetup, type Setup, type SpringSetup } from './sim/engine';
 import { Slider } from './Slider';
+import { physicsSceneState } from './teacherScene';
 
 const Scene3D = lazy(() => import('./Scene3D'));
 const webgl = hasWebGL();
@@ -45,6 +48,48 @@ function Experiment() {
     engine.speed = speed;
   }, [engine, speed]);
   const snap = useSnapshot(engine);
+
+  const latest = useRef({ setup, running });
+  latest.current = { setup, running };
+  useRegisterScene('physics', {
+    getState: () => {
+      const { setup: cur, running: run } = latest.current;
+      const preset = cur.mode === 'pendulum' ? (physicsConfig.gravityPresets.find((g) => g.g === cur.g)?.id ?? null) : null;
+      return physicsSceneState(engine.snapshot(), cur, run, preset);
+    },
+    apply: (a) => {
+      const label = chipLabel(a);
+      if (a.tool === 'reset_scene') {
+        setPend(defaults.pendulum);
+        setSpr(defaults.spring);
+        setMode('pendulum');
+        setRunning(true);
+        setSpeed(1);
+        return { ok: true, label };
+      }
+      if (a.tool !== 'set_param') return { ok: false, label };
+      const { name, value } = a;
+      if (name === 'experiment' && (value === 'pendulum' || value === 'spring')) setMode(value);
+      else if (name === 'running' && typeof value === 'boolean') setRunning(value);
+      else if (name === 'gravity') {
+        const g = physicsConfig.gravityPresets.find((p) => p.id === value);
+        if (!g) return { ok: false, label };
+        setMode('pendulum');
+        setPend((p) => ({ ...p, g: g.g }));
+      } else if (typeof value === 'number') {
+        const pendKey = { pendulum_length: 'length', pendulum_mass: 'mass', pendulum_angle_deg: 'angleDeg', pendulum_damping: 'damping' } as const;
+        const sprKey = { spring_k: 'k', spring_mass: 'mass', spring_displacement: 'displacement', spring_damping: 'damping' } as const;
+        if (name in pendKey) {
+          setMode('pendulum');
+          setPend((p) => ({ ...p, [pendKey[name as keyof typeof pendKey]]: value }));
+        } else if (name in sprKey) {
+          setMode('spring');
+          setSpr((p) => ({ ...p, [sprKey[name as keyof typeof sprKey]]: value }));
+        } else return { ok: false, label };
+      } else return { ok: false, label };
+      return { ok: true, label };
+    },
+  });
 
   const P = physicsConfig.pendulum;
   const S = physicsConfig.spring;

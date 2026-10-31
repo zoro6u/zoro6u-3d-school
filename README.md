@@ -2,7 +2,7 @@
 
 Interactive Biology, Physics and Chemistry labs in 3D, with AI "teacher" characters. English + Arabic (RTL).
 
-> **Status:** Phase 4 of 7 — landing hallway and the Physics, Biology and Chemistry labs are done. Next: AI teacher (Phase 5).
+> **Status:** Phase 5 of 7 — three labs plus the AI teacher (chat, tool use, voice, avatar). Next: scripted tours, quizzes, progress (Phase 6).
 
 ## Run it
 
@@ -80,3 +80,43 @@ _Placeholder — to be recorded on a phone._
   A broken data file fails `pnpm test` with a readable message.
 - Honest simplifications, shown in the UI: the real H₂ + O₂ reaction is a radical chain mechanism (H•, O•, OH•) and needs a
   spark; in solution NaOH and NaCl are ions, not molecules.
+
+## AI teacher (Phase 5)
+
+One teacher per lab — **Dr. Nour** (biology), **Prof. Karim** (physics), **Ms. Layla** (chemistry) — each with a personality and
+teaching style (`content/teachers/*.json`), a low-poly procedural 3D character with idle animation, and a mouth driven by the voice.
+
+- **Backend (FastAPI):** `POST /api/chat` streams Server-Sent Events (`text`, `action`, `done`, `error`). All LLM calls go through the
+  server, so the API key never reaches the browser. The model name is config (`ANTHROPIC_MODEL`, default `claude-sonnet-5-5`;
+  **`claude-haiku-5-5` is the cheaper option for public demos**).
+- **Scene-aware:** every request carries the live scene as JSON (pendulum length/angle/energies/periods, selected organelle,
+  reaction step…), wrapped as untrusted data in the prompt.
+- **Scene control through tool use:** `set_param`, `focus_object`, `play_reaction_step`, `reset_scene`. Which tools and which
+  ranges are allowed per lesson is data (`teacherTools` in each `lesson.json`; ranges point at the same data the sliders use).
+  Every call is validated **twice** — on the server before it is accepted, and in the browser before it touches the scene — by two
+  implementations that are tested against one shared set of 50 cases (`content/tests/tool-cases.json`). Invalid calls are returned
+  to the model as errors so it can correct itself; they never reach the scene.
+- **Guardrails:** curated `facts.md` per lesson injected as ground truth; science-only, age-appropriate, "don't invent facts",
+  prompt-injection resistant; input caps (message length, history, scene size) and a per-IP rate limit.
+- **Socratic mode:** the "Ask me" toggle makes the teacher guide with questions instead of lecturing.
+- **Short spoken replies** (2–4 sentences), streamed, spoken sentence-by-sentence as they arrive; captions are always shown.
+- **Voice behind an interface** (`SpeechProvider`): Web Speech API by default; swap in a paid TTS with `setSpeechProvider()`.
+  Optional voice input via `SpeechRecognition` (Chromium/Safari only).
+- **Offline / no key:** `/api/chat` answers 503 `llm_unavailable`; the panel shows an offline banner and the labs keep working.
+  (Scripted guided tours arrive in Phase 6.)
+
+### Honest limits
+- **Lip-sync is simulated, not amplitude-based.** The Web Speech API plays audio straight to the OS, so there is no waveform to
+  read. The mouth follows a speech-rate oscillation plus word-boundary events (Chrome desktop fires them; Android often doesn't).
+  A TTS provider that returns audio can expose an `AnalyserNode` for true amplitude sync without touching the avatar.
+- **Arabic voices vary by browser/OS.** Chrome on Android usually has one; many desktop browsers don't. When none exists the UI says
+  so and the teacher is captions-only.
+- **The live Claude call is untested here** (no API key in the build environment). It is covered by tests that run the real SDK
+  against replayed API events, and by a scripted mock LLM (`MOCK_LLM=true`, dev/CI only). Follow
+  [`docs/live-verification.md`](docs/live-verification.md) to confirm with your key.
+
+### Dev without a key
+```bash
+cd api && MOCK_LLM=true uv run uvicorn app.main:app --reload     # scripted teacher
+cd web && pnpm dev
+```
