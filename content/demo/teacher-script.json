@@ -1,0 +1,348 @@
+{
+ "_comment": "Scripted teacher replies used by the dev/CI mock LLM (api/app/llm/mock.py) and by the static demo build (web/src/demo). Not used in production.",
+ "scripts": {
+  "physics": [
+   {
+    "keywords": [
+     "testbad"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "pendulum_length",
+      "value": 99
+     }
+    },
+    "texts": {
+     "en": [
+      "Let me try something extreme.",
+      "That setting is outside what the lab allows, so let's just reason about it: a longer pendulum has a longer period.",
+      "That is outside the lab's range. What do you think happens to the period if the length gets bigger?"
+     ],
+     "ar": [
+      "دعني أجرّب شيئًا متطرفًا.",
+      "هذا الإعداد خارج ما يسمح به المختبر، فلنفكّر فيه بالكلام: كلما زاد الطول زاد زمن الدورة.",
+      "هذا خارج مدى المختبر. ماذا تتوقع أن يحدث لزمن الدورة إذا زاد الطول؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "moon",
+     "القمر"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "gravity",
+      "value": "moon"
+     }
+    },
+    "texts": {
+     "en": [
+      "Good idea, let's visit the Moon.",
+      "On the Moon gravity is only 1.62 meters per second squared, so the pendulum swings about two and a half times more slowly. Check the measured period against the theory.",
+      "Watch the swing now. Gravity is much weaker here, so what do you expect the period to do compared with Earth?"
+     ],
+     "ar": [
+      "فكرة جيدة، لنزر القمر.",
+      "الجاذبية على القمر 1.62 m/s² فقط، لذلك يتأرجح البندول أبطأ بنحو مرتين ونصف. قارن زمن الدورة المقيس بالنظري.",
+      "راقب التأرجح الآن. الجاذبية هنا أضعف بكثير، فماذا تتوقع أن يحدث لزمن الدورة مقارنة بالأرض؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "angle",
+     "large",
+     "big",
+     "90",
+     "زاوية"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "pendulum_angle_deg",
+      "value": 90
+     }
+    },
+    "texts": {
+     "en": [
+      "Let's try a big swing of 90 degrees.",
+      "At 90 degrees the small-angle formula is about 18 percent too short, and the simulation shows the true, longer period.",
+      "I've set 90 degrees. Compare the two theory periods with the measured one: which formula does the simulation agree with?"
+     ],
+     "ar": [
+      "لنجرّب تأرجحًا كبيرًا بزاوية 90 درجة.",
+      "عند 90 درجة تعطي صيغة الزوايا الصغيرة زمنًا أقصر بنحو 18%، وتُظهر المحاكاة زمن الدورة الحقيقي الأطول.",
+      "ضبطتُ الزاوية على 90 درجة. قارن الزمنين النظريين بالمقيس: مع أي صيغة تتفق المحاكاة؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "spring",
+     "نابض"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "experiment",
+      "value": "spring"
+     }
+    },
+    "texts": {
+     "en": [
+      "Switching to the mass-spring system.",
+      "Here the period depends on the mass and the spring constant, not on how far you pull.",
+      "Here's the spring. If you double the mass, what do you think happens to the period?"
+     ],
+     "ar": [
+      "ننتقل إلى نظام الكتلة والنابض.",
+      "هنا يعتمد زمن الدورة على الكتلة وثابت النابض، وليس على مقدار الشد.",
+      "هذا هو النابض. إذا ضاعفنا الكتلة، فماذا تتوقع أن يحدث لزمن الدورة؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "reset",
+     "start over",
+     "إعادة"
+    ],
+    "call": {
+     "tool": "reset_scene",
+     "args": {}
+    },
+    "texts": {
+     "en": [
+      "Resetting the lab.",
+      "Everything is back to the start, so you can try a fresh experiment.",
+      "Back to the start. What would you like to change first?"
+     ],
+     "ar": [
+      "أعيد ضبط المختبر.",
+      "عاد كل شيء إلى البداية، فيمكنك تجربة تجربة جديدة.",
+      "عدنا إلى البداية. ما الذي تود تغييره أولًا؟"
+     ]
+    }
+   }
+  ],
+  "biology": [
+   {
+    "keywords": [
+     "mitochondria",
+     "powerhouse",
+     "ميتوكوندريا"
+    ],
+    "call": {
+     "tool": "focus_object",
+     "args": {
+      "id": "mitochondria"
+     }
+    },
+    "texts": {
+     "en": [
+      "Let's zoom in on the mitochondria.",
+      "These make most of the cell's ATP through respiration, and their folded inner membrane gives them more surface area.",
+      "Here are the mitochondria. Why do you think their inner membrane is folded?"
+     ],
+     "ar": [
+      "لنقترب من الميتوكوندريا.",
+      "تصنع معظم ATP في الخلية بالتنفس، وغشاؤها الداخلي المطوي يعطيها مساحة أكبر.",
+      "هذه هي الميتوكوندريا. لماذا برأيك غشاؤها الداخلي مطوي؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "nucleus",
+     "dna",
+     "نواة"
+    ],
+    "call": {
+     "tool": "focus_object",
+     "args": {
+      "id": "nucleus"
+     }
+    },
+    "texts": {
+     "en": [
+      "Let's look at the nucleus.",
+      "It stores the cell's DNA and controls which genes are used.",
+      "Here is the nucleus. What do you think the cell would lose if it didn't have one?"
+     ],
+     "ar": [
+      "لننظر إلى النواة.",
+      "تخزّن المادة الوراثية DNA وتتحكم في الجينات التي تُستخدم.",
+      "هذه هي النواة. ماذا برأيك ستفقد الخلية لو لم تكن لها نواة؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "cut",
+     "inside",
+     "open",
+     "مقطع"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "cutaway",
+      "value": true
+     }
+    },
+    "texts": {
+     "en": [
+      "I'll slice the cell open.",
+      "Now you can see the organelles through the opening.",
+      "The cell is open. Which organelle can you spot first?"
+     ],
+     "ar": [
+      "سأفتح الخلية بمقطع.",
+      "الآن تستطيع رؤية العضيات من خلال الفتحة.",
+      "الخلية مفتوحة الآن. ما أول عُضيّة تلاحظها؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "reset",
+     "إعادة"
+    ],
+    "call": {
+     "tool": "reset_scene",
+     "args": {}
+    },
+    "texts": {
+     "en": [
+      "Resetting the view.",
+      "We're back to the whole cell.",
+      "Back to the whole cell. Which part would you like to explore?"
+     ],
+     "ar": [
+      "أعيد ضبط العرض.",
+      "عدنا إلى الخلية كاملة.",
+      "عدنا إلى الخلية كاملة. أي جزء تود استكشافه؟"
+     ]
+    }
+   }
+  ],
+  "chemistry": [
+   {
+    "keywords": [
+     "break",
+     "bond",
+     "روابط"
+    ],
+    "call": {
+     "tool": "play_reaction_step",
+     "args": {
+      "n": 2
+     }
+    },
+    "texts": {
+     "en": [
+      "Let's jump to the bond-breaking step.",
+      "Breaking bonds takes in energy, which is why a spark is needed to start this reaction.",
+      "Here the bonds have broken. Does breaking bonds take in energy or release it?"
+     ],
+     "ar": [
+      "لننتقل إلى خطوة كسر الروابط.",
+      "كسر الروابط يمتص طاقة، ولهذا نحتاج شرارة لبدء التفاعل.",
+      "هنا انكسرت الروابط. هل كسر الروابط يمتص طاقة أم يحررها؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "form",
+     "glow",
+     "energy",
+     "طاقة"
+    ],
+    "call": {
+     "tool": "play_reaction_step",
+     "args": {
+      "n": 4
+     }
+    },
+    "texts": {
+     "en": [
+      "Watch the new bonds form.",
+      "Forming the O-H bonds releases more energy than breaking the old ones took, so the reaction is exothermic.",
+      "See the glow? Which side of the reaction released more energy, breaking bonds or forming them?"
+     ],
+     "ar": [
+      "شاهد تكوّن الروابط الجديدة.",
+      "تكوين روابط O–H يحرر طاقة أكبر مما استهلكه كسر الروابط القديمة، لذلك التفاعل طارد للحرارة.",
+      "هل ترى التوهج؟ أيهما حرّر طاقة أكبر: كسر الروابط أم تكوينها؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "balance",
+     "atoms",
+     "ذرات",
+     "وزن"
+    ],
+    "call": {
+     "tool": "set_param",
+     "args": {
+      "name": "view",
+      "value": "balance"
+     }
+    },
+    "texts": {
+     "en": [
+      "Let's check the atoms.",
+      "Atoms are never created or destroyed, so each element must match on both sides.",
+      "I've opened the balancing view. Which element is out of balance right now?"
+     ],
+     "ar": [
+      "لنفحص الذرات.",
+      "الذرات لا تُخلق ولا تفنى، لذلك يجب أن يتساوى كل عنصر في الطرفين.",
+      "فتحتُ عرض الموازنة. أي عنصر غير متزن الآن؟"
+     ]
+    }
+   },
+   {
+    "keywords": [
+     "reset",
+     "start",
+     "إعادة"
+    ],
+    "call": {
+     "tool": "reset_scene",
+     "args": {}
+    },
+    "texts": {
+     "en": [
+      "Back to the beginning.",
+      "The reaction is reset to the reactants.",
+      "We're at the start. What do you predict will happen when the molecules meet?"
+     ],
+     "ar": [
+      "نعود إلى البداية.",
+      "عاد التفاعل إلى المواد المتفاعلة.",
+      "نحن في البداية. ماذا تتوقع أن يحدث عندما تلتقي الجزيئات؟"
+     ]
+    }
+   }
+  ]
+ },
+ "default": {
+  "en": [
+   "",
+   "I'm here to help with this lab. Ask me about what you see, or tell me to show you something.",
+   "What have you noticed in the lab so far?"
+  ],
+  "ar": [
+   "",
+   "أنا هنا لأساعدك في هذا المختبر. اسألني عما تراه، أو اطلب مني أن أريك شيئًا.",
+   "ما الذي لاحظته في المختبر حتى الآن؟"
+  ]
+ }
+}

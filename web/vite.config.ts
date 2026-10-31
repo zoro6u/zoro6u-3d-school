@@ -4,12 +4,21 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+// `pnpm build:demo` (VITE_DEMO=1): one self-contained bundle for sandboxed hosts: relative base, no service worker, no code splitting.
+declare const process: { env: Record<string, string | undefined> }; // avoids pulling @types/node into the app's types
+const demo = process.env.VITE_DEMO === '1';
+
 export default defineConfig({
+  base: demo ? './' : '/',
+  // a hard compile-time constant, so normal builds contain none of the demo code
+  define: { 'import.meta.env.VITE_DEMO': JSON.stringify(demo ? '1' : '') },
+  build: demo ? { outDir: 'dist-demo', rolldownOptions: { output: { codeSplitting: false } } } : {},
   plugins: [
     react(),
     tailwindcss(),
     // Installable + works offline after the first visit, so the guided tours (which need no API key) keep working with no network.
     VitePWA({
+      disable: demo,
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {

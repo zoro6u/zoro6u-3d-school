@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SettingsBar } from './SettingsBar';
+import { DEMO } from '../core/demo';
 import { useSettings } from '../store/settings';
 import { ErrorBoundary } from './ErrorBoundary';
 import { PerfOverlay } from './PerfOverlay';
@@ -27,6 +28,9 @@ export function Layout() {
         </Link>
         <SettingsBar />
       </header>
+      {DEMO && (
+        <p role="note" className="m-0 border-b border-sky-400/30 bg-sky-400/10 px-4 py-1.5 text-center text-xs text-sky-100">{t('demo.banner')}</p>
+      )}
       <QualityNotice />
       <PerfOverlay />
       <main id="main" className="flex flex-1 flex-col">

@@ -1,3 +1,4 @@
+import { DEMO } from '../core/demo';
 import { parseSSE, type ChatEvent } from './sse';
 
 export interface ChatRequest {
@@ -23,6 +24,11 @@ export class ChatHttpError extends Error {
 const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? '';
 
 export async function* streamChat(req: ChatRequest, signal?: AbortSignal, fetchImpl: typeof fetch = fetch): AsyncGenerator<ChatEvent> {
+  if (import.meta.env.VITE_DEMO === '1') {
+    const { demoStream } = await import('../demo/demoTeacher');
+    yield* demoStream(req, signal);
+    return;
+  }
   const res = await fetchImpl(`${API_BASE}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
@@ -48,6 +54,7 @@ export async function* streamChat(req: ChatRequest, signal?: AbortSignal, fetchI
 }
 
 export async function fetchHealth(fetchImpl: typeof fetch = fetch): Promise<{ llm: boolean; provider: string | null } | null> {
+  if (DEMO) return { llm: true, provider: 'demo' };
   try {
     const res = await fetchImpl(`${API_BASE}/api/health`, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) return null;

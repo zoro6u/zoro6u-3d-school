@@ -95,11 +95,17 @@ Full stack in containers: `docker compose up --build` → http://localhost:8080.
 | `CORS_ORIGINS`, `RATE_LIMIT_PER_MINUTE`, `TRUST_PROXY`, `MAX_OUTPUT_TOKENS` | see `.env.example` | |
 | `MOCK_LLM` | `false` | dev/CI only: scripted teacher, no key |
 
+### Try it without a server (demo build)
+`cd web && pnpm build:demo` produces **one self-contained `dist-demo/index.html`** (no backend, no service worker, in-memory routing),
+suitable for sandboxed hosts and quick sharing. It is the real app (simulations, labs, tours, quizzes, validators, avatars), except the AI
+teacher gives *scripted* replies (`content/demo/teacher-script.json`, shared with the dev mock LLM) and progress isn't saved. A banner says so.
+Normal builds contain none of this code (verified: no demo chunk in `dist/`).
+
 ## Quality
 
 | | |
 |---|---|
-| **Tests** | 99 backend (pytest) + 215 frontend (Vitest). Physics checked against textbook values (T = 2π√(L/g), exact large-angle period, energy conservation); every reaction data file validated (balance, atom conservation, geometry); tool validators in TS and Python tested against **one shared case file**; every number a tour states is verified against the simulation; the real Anthropic SDK is run against replayed API events. |
+| **Tests** | 99 backend (pytest) + 221 frontend (Vitest). Physics checked against textbook values (T = 2π√(L/g), exact large-angle period, energy conservation); every reaction data file validated (balance, atom conservation, geometry); tool validators in TS and Python tested against **one shared case file**; every number a tour states is verified against the simulation; the real Anthropic SDK is run against replayed API events. |
 | **Types / lint** | TypeScript `strict` (+ `noUncheckedIndexedAccess`), ruff |
 | **Accessibility** | axe-core WCAG 2.1 A/AA: **0 violations** across all pages in EN and AR, with panels and dialogs open. Keyboard-operable labs (arrow keys rotate, +/− zoom), captions for everything the teacher says, `prefers-reduced-motion` + toggle, visible focus. |
 | **Responsive** | no horizontal overflow at 360/390/768/1280 px (loads and live resizes) |

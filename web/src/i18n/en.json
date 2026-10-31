@@ -391,5 +391,8 @@
     "switched": "The animation was running slowly, so we switched to Low graphics.",
     "undo": "Switch back",
     "ok": "OK"
+  },
+  "demo": {
+    "banner": "Demo build: the labs, simulations, tours and quizzes are the real app. The AI teacher here gives scripted replies; the full app streams them from Claude. Progress isn't saved in this demo."
   }
 }

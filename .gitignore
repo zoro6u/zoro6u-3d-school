@@ -12,3 +12,4 @@ __pycache__/
 .DS_Store
 *.bundle
 web/e2e/perf-report.json
+dist-demo/

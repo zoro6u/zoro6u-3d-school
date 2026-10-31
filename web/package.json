@@ -10,7 +10,8 @@
     "test": "vitest run",
     "preview": "vite preview",
     "audit:ui": "node e2e/audit.cjs",
-    "audit:perf": "node e2e/perf.cjs"
+    "audit:perf": "node e2e/perf.cjs",
+    "build:demo": "VITE_DEMO=1 vite build && node scripts/inline-demo.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
