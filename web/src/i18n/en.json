@@ -180,5 +180,77 @@
         "fact": "A network of protein fibres called the cytoskeleton runs through the cytoplasm. It gives the cell its shape and lets organelles move."
       }
     }
+  },
+  "chemistry": {
+    "tabs": {
+      "label": "View",
+      "reaction": "Reaction",
+      "balance": "Balance it"
+    },
+    "reactionPicker": "Choose a reaction",
+    "controls": {
+      "play": "Play",
+      "pause": "Pause",
+      "replay": "Replay",
+      "prev": "Previous step",
+      "next": "Next step",
+      "restart": "Restart",
+      "speed": "Speed",
+      "scrub": "Timeline",
+      "stageOf": "Step {{n}} of {{total}}",
+      "jump": "Go to step {{n}}: {{title}}"
+    },
+    "labelReactants": "Reactants",
+    "labelProducts": "Products",
+    "equation": "Equation",
+    "legend": "Atom colours (CPK)",
+    "elements": {
+      "H": "Hydrogen",
+      "C": "Carbon",
+      "N": "Nitrogen",
+      "O": "Oxygen",
+      "Na": "Sodium",
+      "Cl": "Chlorine"
+    },
+    "bondsNote": "Sticks are bonds. Double bonds are drawn as two sticks. Thin white sticks are ionic attractions.",
+    "energy": {
+      "title": "Energy diagram",
+      "qualitative": "Qualitative sketch, not to scale",
+      "kj": "Energy relative to the reactants (kJ)",
+      "exo": "Exothermic: energy is released",
+      "endo": "Endothermic: energy is absorbed",
+      "deltaH": "ΔH = {{value}} kJ",
+      "reactants": "reactants",
+      "products": "products",
+      "progress": "reaction progress"
+    },
+    "accounting": {
+      "title": "Bond energy bookkeeping",
+      "broken": "Bonds broken (energy absorbed)",
+      "formed": "Bonds formed (energy released)",
+      "unit": "kJ",
+      "estimateLabel": "Estimated ΔH",
+      "measuredLabel": "Measured ΔH"
+    },
+    "balance": {
+      "title": "Balance the equation",
+      "intro": "Atoms are never created or destroyed, so each element must have the same count on both sides. Change the numbers in front of the formulas (coefficients) until it balances.",
+      "coeff": "Number of {{name}}",
+      "more": "more",
+      "fewer": "fewer",
+      "atomsLeft": "Atoms on the left",
+      "atomsRight": "Atoms on the right",
+      "element": "Element",
+      "balanced": "Balanced! Every element has the same count on both sides.",
+      "unbalanced": "Not balanced yet. Check: {{elements}}.",
+      "reset": "Reset to 1",
+      "answer": "Show the answer",
+      "tip": "Tip: balance the element that appears in only one molecule on each side first.",
+      "notSimplest": "It is not in simplest form: divide every number by {{n}}.",
+      "watch": "Watch it happen"
+    },
+    "mechanismTitle": "About this model",
+    "caption": "Description of the current step",
+    "canvasLabel": "3D ball-and-stick animation of the reaction. Use the step buttons and the timeline to control it."
   }
 }

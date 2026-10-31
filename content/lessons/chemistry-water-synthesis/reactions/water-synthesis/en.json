@@ -1,0 +1,40 @@
+{
+ "title": "Making water",
+ "tab": "Hydrogen + oxygen",
+ "summary": "Hydrogen gas burns in oxygen to make water, releasing a lot of energy.",
+ "species": {
+  "H2": "Hydrogen",
+  "O2": "Oxygen",
+  "H2O": "Water"
+ },
+ "stages": {
+  "reactants": {
+   "title": "Reactants",
+   "caption": "Two hydrogen molecules (H₂) and one oxygen molecule (O₂). In each molecule the atoms are held together by a covalent bond, where they share electrons."
+  },
+  "approach": {
+   "title": "Molecules approach",
+   "caption": "The molecules move toward each other. For a reaction to happen they must collide with enough energy and in the right way."
+  },
+  "break": {
+   "title": "Bonds break",
+   "caption": "Breaking the H–H and O=O bonds takes in energy. This starting energy is the activation energy; in real life a spark or flame supplies it."
+  },
+  "rearrange": {
+   "title": "Atoms rearrange",
+   "caption": "The free atoms move and regroup. Atoms are never created or destroyed, so all 4 hydrogen atoms and both oxygen atoms end up in the products."
+  },
+  "form": {
+   "title": "New bonds form",
+   "caption": "New O–H bonds form, making two water molecules. Forming bonds releases energy as heat and light, so the reaction is exothermic."
+  },
+  "products": {
+   "title": "Products",
+   "caption": "Two molecules of water (H₂O). More energy was released making four O–H bonds than was needed to break the old bonds, so the surroundings get hotter."
+  }
+ },
+ "notes": {
+  "mechanism": "Simplified model. Real hydrogen–oxygen combustion is a chain reaction with short-lived pieces such as H•, O• and OH•, and bonds break and form at overlapping times. The animation shows the overall idea: bonds break, atoms rearrange, new bonds form.",
+  "thermo": "ΔH = −483.6 kJ for 2H₂ + O₂ → 2H₂O when the water is steam (−571.6 kJ if it condenses to liquid). The bond-energy sum below uses average values, so it is close to, not exactly, the measured value."
+ }
+}

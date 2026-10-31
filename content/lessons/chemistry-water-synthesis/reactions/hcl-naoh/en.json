@@ -1,0 +1,37 @@
+{
+ "title": "Acid + base: making salt and water",
+ "tab": "Acid + base",
+ "summary": "Hydrochloric acid and sodium hydroxide neutralise each other.",
+ "species": {
+  "HCl": "Hydrogen chloride (hydrochloric acid)",
+  "NaOH": "Sodium hydroxide",
+  "NaCl": "Sodium chloride (table salt)",
+  "H2O": "Water"
+ },
+ "stages": {
+  "reactants": {
+   "title": "Reactants",
+   "caption": "Hydrochloric acid (HCl) and sodium hydroxide (NaOH). In water they are really ions (H⁺, Cl⁻, Na⁺, OH⁻); here they are drawn as simple units so we can follow the atoms."
+  },
+  "approach": {
+   "title": "Acid meets base",
+   "caption": "The acid and the base come together."
+  },
+  "break": {
+   "title": "Partners separate",
+   "caption": "Hydrogen leaves chlorine, and sodium leaves the hydroxide group (OH)."
+  },
+  "form": {
+   "title": "New partners form",
+   "caption": "Hydrogen joins hydroxide to make water, and sodium joins chlorine to make salt. The key change is H⁺ + OH⁻ → H₂O."
+  },
+  "products": {
+   "title": "Products",
+   "caption": "Water (H₂O) and sodium chloride (NaCl, table salt). This is a neutralisation reaction. It is mildly exothermic: about −57 kJ per mole of water formed."
+  }
+ },
+ "notes": {
+  "mechanism": "Simplified model. In solution, NaOH and NaCl are not molecules but separate ions surrounded by water molecules. The thin white bonds are a schematic way to show ionic attraction.",
+  "thermo": "ΔH ≈ −57.1 kJ per mole of water for a dilute strong acid with a strong base."
+ }
+}

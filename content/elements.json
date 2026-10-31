@@ -1,0 +1,8 @@
+{
+  "H":  { "symbol": "H",  "color": "#FFFFFF", "radius": 0.28 },
+  "C":  { "symbol": "C",  "color": "#909090", "radius": 0.38 },
+  "N":  { "symbol": "N",  "color": "#3050F8", "radius": 0.37 },
+  "O":  { "symbol": "O",  "color": "#FF0D0D", "radius": 0.42 },
+  "Na": { "symbol": "Na", "color": "#AB5CF2", "radius": 0.6 },
+  "Cl": { "symbol": "Cl", "color": "#1FF01F", "radius": 0.5 }
+}
