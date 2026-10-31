@@ -1,0 +1,35 @@
+{
+ "title": "Chemistry quiz",
+ "questions": {
+  "atoms": {
+   "prompt": "How many hydrogen atoms are on the reactant side of 2H₂ + O₂ → 2H₂O?",
+   "choices": [
+    "2",
+    "4",
+    "6",
+    "1"
+   ],
+   "explanation": "The coefficient 2 multiplies the subscript 2: 2 × 2 = 4 hydrogen atoms. The product side also has 2 × 2 = 4, so the equation is balanced."
+  },
+  "energy": {
+   "prompt": "In a chemical reaction, what happens to energy when bonds break and when bonds form?",
+   "choices": [
+    "Both release energy",
+    "Both absorb energy",
+    "Breaking releases energy, forming absorbs it",
+    "Breaking absorbs energy, forming releases it"
+   ],
+   "explanation": "Breaking bonds takes in energy and forming bonds releases it. When more energy is released than absorbed, as when hydrogen burns, the reaction is exothermic."
+  },
+  "balance": {
+   "prompt": "Which coefficients balance H₂ + O₂ → H₂O?",
+   "choices": [
+    "1, 1, 1",
+    "1, 2, 2",
+    "2, 1, 2",
+    "2, 2, 1"
+   ],
+   "explanation": "2H₂ + O₂ → 2H₂O has 4 H and 2 O on each side. When balancing you change the coefficients in front of formulas, never the small subscripts inside them."
+  }
+ }
+}

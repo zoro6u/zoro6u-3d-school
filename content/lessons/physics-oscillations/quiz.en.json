@@ -1,0 +1,35 @@
+{
+ "title": "Physics quiz",
+ "questions": {
+  "length": {
+   "prompt": "A pendulum's length is increased from 1 m to 4 m, on the same planet and with a small swing. What happens to its period?",
+   "choices": [
+    "It stays the same",
+    "It doubles",
+    "It becomes four times longer",
+    "It is cut in half"
+   ],
+   "explanation": "The period depends on the square root of the length: T = 2π√(L/g). Four times the length means √4 = 2 times the period."
+  },
+  "spring": {
+   "prompt": "Which change would make a mass on a spring oscillate faster, with a shorter period?",
+   "choices": [
+    "A heavier mass",
+    "Pulling the mass further before letting go",
+    "A stiffer spring (larger k)",
+    "Doing the experiment on the Moon"
+   ],
+   "explanation": "T = 2π√(m/k), so a larger k gives a shorter period. A heavier mass makes it longer, and for an ideal spring the amplitude and gravity don't change the period."
+  },
+  "large": {
+   "prompt": "A pendulum is released from 90°. How does its real period compare with the small-angle formula 2π√(L/g)?",
+   "choices": [
+    "It is longer, about 18% more",
+    "It is shorter",
+    "It is exactly the same",
+    "It depends on the mass of the bob"
+   ],
+   "explanation": "The formula assumes sin θ ≈ θ, which only holds for small angles. At 90° the real pendulum swings more slowly, and its period is about 18% longer. Mass never matters."
+  }
+ }
+}

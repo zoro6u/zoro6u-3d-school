@@ -1,0 +1,17 @@
+{
+ "passMark": 2,
+ "questions": [
+  {
+   "id": "atp",
+   "answer": 2
+  },
+  {
+   "id": "rough",
+   "answer": 0
+  },
+  {
+   "id": "golgi",
+   "answer": 3
+  }
+ ]
+}

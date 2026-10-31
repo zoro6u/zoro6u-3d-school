@@ -311,6 +311,74 @@
       "truncated": "My answer got cut off. Could you ask again?",
       "rate_limited": "You're asking very quickly. Please wait about {{seconds}} seconds.",
       "too_long": "That message is too long. Please shorten it."
+    },
+    "tour": {
+      "start": "Guided tour",
+      "startHint": "Narrated walkthrough. Works offline, no API key needed.",
+      "stepOf": "Step {{n}} of {{total}}",
+      "progress": "Tour progress",
+      "narration": "Tour narration",
+      "pause": "Pause",
+      "resume": "Resume",
+      "next": "Next",
+      "prev": "Back",
+      "stop": "End tour",
+      "finishedTitle": "Tour complete!",
+      "finishedBody": "You've seen the whole lab. Ready to test yourself?",
+      "replay": "Replay tour",
+      "backToChat": "Back to chat",
+      "quiz": "Take the quiz"
     }
+  },
+  "quiz": {
+    "open": "Take the quiz",
+    "questionOf": "Question {{n}} of {{total}}",
+    "check": "Check answer",
+    "next": "Next question",
+    "results": "See results",
+    "correct": "Correct!",
+    "incorrect": "Not quite.",
+    "correctAnswerIs": "Correct answer: {{answer}}",
+    "score": "You scored {{score}} out of {{total}}",
+    "passed": "Quiz passed. Lab completed!",
+    "notPassed": "You need {{mark}} out of {{total}} to complete this lab. Have another go!",
+    "retry": "Try again",
+    "close": "Close",
+    "review": "Review",
+    "yourAnswer": "Your answer: {{answer}}",
+    "unanswered": "no answer",
+    "askExplain": "Ask {{name}} to explain",
+    "explainPrompt": "I answered \"{{mine}}\" to the question \"{{prompt}}\". Can you explain why the right answer is \"{{correct}}\"?",
+    "best": "Best score: {{score}}/{{total}}",
+    "chooseOne": "Choose one answer",
+    "feedback": {
+      "nour": {
+        "perfect": "Perfect score! You really know your way around the cell.",
+        "good": "Nice work! You've got most of it. Have another look at the parts you missed.",
+        "retry": "That's okay, cells are tricky! Take the tour again, then give it another go."
+      },
+      "karim": {
+        "perfect": "Flawless. Now go and break something in the simulation, just to see what happens.",
+        "good": "Solid. Check the one you missed in the simulation: change the number and watch.",
+        "retry": "Don't worry. Experiments teach more than answers. Run the tour, then try again."
+      },
+      "layla": {
+        "perfect": "Every atom accounted for! Perfect score.",
+        "good": "Great job! There's just one detail to revisit.",
+        "retry": "No problem, even chemists balance things twice! Watch the tour again and retry."
+      }
+    }
+  },
+  "progress": {
+    "summary": "{{done}} of {{total}} labs completed",
+    "completed": "Completed",
+    "started": "In progress",
+    "tourDone": "Tour done",
+    "quizBest": "Quiz best {{score}}/{{total}}",
+    "reset": "Reset progress",
+    "resetConfirm": "Erase all your progress?",
+    "resetYes": "Yes, erase",
+    "resetNo": "Cancel",
+    "bar": "Overall progress"
   }
 }

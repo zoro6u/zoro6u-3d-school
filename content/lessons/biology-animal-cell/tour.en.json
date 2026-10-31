@@ -1,0 +1,16 @@
+{
+ "title": "Guided tour",
+ "steps": {
+  "welcome": "Welcome, I'm Dr. Nour! This is an animal cell, drawn as a simplified model, not to scale. We'll visit each part and follow how the cell makes a protein. You can drag to rotate it any time.",
+  "nucleus": "First stop: the nucleus, the control centre. It stores the cell's DNA. A copy of one gene, called mRNA, leaves through pores in the nuclear envelope to start making a protein.",
+  "ribosomes": "The mRNA meets a ribosome. Ribosomes read the message and join amino acids together in the right order to build a protein. Some float freely, and some sit on the rough ER.",
+  "roughEr": "These folded sheets are the rough ER. The ribosomes stuck to it feed new proteins inside, where they are folded and checked.",
+  "golgi": "From there the proteins travel to the Golgi apparatus, a stack of flattened sacs that works like a post office. It modifies proteins, sorts them, and packs them into vesicles for delivery.",
+  "smoothEr": "Nearby is the smooth ER: tubes with no ribosomes. It makes lipids, such as the fats that build the cell membrane, and helps break down harmful substances.",
+  "lysosomes": "Lysosomes are the recycling crew. Their strong digestive enzymes, working in acid, break down worn-out parts and germs that the cell has swallowed.",
+  "mitochondria": "All this work needs energy. Mitochondria release it from food through respiration, making ATP. Their folded inner membranes give them extra surface area.",
+  "membrane": "Wrapped around everything is the cell membrane, a thin double layer of fats with proteins. It decides what enters and leaves the cell.",
+  "cytoplasm": "And between the organelles is the cytoplasm, a jelly-like fluid that is mostly water. Many chemical reactions happen here.",
+  "cutaway": "Finally, I'll slice the cell open so you can see how it all fits together. Now it's your turn: click any part, ask me a question, or take the quiz."
+ }
+}

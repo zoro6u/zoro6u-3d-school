@@ -538,6 +538,30 @@
    },
    "ok": false,
    "why": "tool not available in this lesson"
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "set_param",
+   "args": {
+    "name": "reaction",
+    "value": "hcl-naoh"
+   },
+   "ok": true,
+   "action": {
+    "tool": "set_param",
+    "name": "reaction",
+    "value": "hcl-naoh"
+   }
+  },
+  {
+   "lesson": "chemistry-water-synthesis",
+   "tool": "set_param",
+   "args": {
+    "name": "reaction",
+    "value": "methane-burning"
+   },
+   "ok": false,
+   "why": "not in enum"
   }
  ]
 }

@@ -1,0 +1,15 @@
+{
+ "title": "Guided tour",
+ "steps": {
+  "welcome": "Welcome to the pendulum lab, I'm Prof. Karim. Everything you see is a real simulation, not an animation: the computer solves the equations of motion many times a second. Let's run a few experiments together.",
+  "ten": "Here is a one metre pendulum on Earth, swinging from ten degrees. The formula two pi root L over g predicts 2.01 seconds. Check the readouts: after two swings the measured period agrees.",
+  "longer": "Now I'll double the length to two metres. The period grows to about 2.84 seconds, not twice as long. It depends on the square root of the length, so you would need four times the length to double it.",
+  "mass": "Next I'll make the bob four times heavier. Watch the measured period: it doesn't change. Mass cancels out of the equation of motion, so a heavy and a light pendulum keep the same time.",
+  "moon": "Let's go to the Moon, where gravity is only 1.62 metres per second squared. The same pendulum now takes about 7.0 seconds per swing, roughly two and a half times slower.",
+  "big": "Back on Earth, I'll swing a one metre pendulum out to 90 degrees. The small-angle formula still says 2.01 seconds, but the simulation shows the true period is 2.37, about 18 percent longer. Big swings break the approximation sine theta equals theta.",
+  "damping": "Now I'll add damping, like air resistance. Watch the energy chart: the total energy line falls, because energy is turned into heat, and the swings get smaller.",
+  "spring": "On to the mass and spring. With a spring constant of 20 newtons per metre and a one kilogram block, two pi root m over k gives 1.40 seconds, and the measured period agrees.",
+  "heavier": "Now four times the mass. The period doubles to 2.81 seconds: a heavier block is harder to turn around, so it oscillates more slowly. A stiffer spring would do the opposite.",
+  "outro": "That's the tour! Now it's your turn: change a slider, make a prediction, then check it. You can also ask me a question or take the quiz."
+ }
+}

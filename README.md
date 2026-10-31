@@ -2,7 +2,7 @@
 
 Interactive Biology, Physics and Chemistry labs in 3D, with AI "teacher" characters. English + Arabic (RTL).
 
-> **Status:** Phase 5 of 7 — three labs plus the AI teacher (chat, tool use, voice, avatar). Next: scripted tours, quizzes, progress (Phase 6).
+> **Status:** Phase 6 of 7 — three labs, the AI teacher, offline guided tours, quizzes and saved progress. Next: polish, README media, Docker, deploy notes (Phase 7).
 
 ## Run it
 
@@ -103,7 +103,7 @@ teaching style (`content/teachers/*.json`), a low-poly procedural 3D character w
 - **Voice behind an interface** (`SpeechProvider`): Web Speech API by default; swap in a paid TTS with `setSpeechProvider()`.
   Optional voice input via `SpeechRecognition` (Chromium/Safari only).
 - **Offline / no key:** `/api/chat` answers 503 `llm_unavailable`; the panel shows an offline banner and the labs keep working.
-  (Scripted guided tours arrive in Phase 6.)
+  The scripted guided tour (below) is the fallback.
 
 ### Honest limits
 - **Lip-sync is simulated, not amplitude-based.** The Web Speech API plays audio straight to the OS, so there is no waveform to
@@ -120,3 +120,32 @@ teaching style (`content/teachers/*.json`), a low-poly procedural 3D character w
 cd api && MOCK_LLM=true uv run uvicorn app.main:app --reload     # scripted teacher
 cd web && pnpm dev
 ```
+
+## Guided tours, quizzes and progress (Phase 6)
+
+**Offline guided tour — works with no API key and no network.** Each lab has a narrated walkthrough (`tour.json` + `tour.en.json`
++ `tour.ar.json` next to the lesson). A step performs scene actions, shows the caption, and speaks it with the teacher's voice;
+the tour moves on when the voice finishes (or after a reading-time floor if voice is off or unavailable). Controls: pause/resume,
+next/back (stepping while paused shows each step without auto-advancing), end tour. Physics: reset → 10° swing → longer pendulum →
+heavier bob → Moon → 90° swing → damping → spring → 4× mass. Biology follows a protein from nucleus → ribosome → rough ER →
+Golgi, then the rest of the cell, ending in a cutaway. Chemistry steps through all six stages, balances the equation, and shows
+the acid–base reaction.
+- Tours use the **same actions and validator** as the AI teacher (`set_param`, `focus_object`, …), so a tour can never do
+  something the teacher couldn't — and a test validates every tour action against the lesson manifest on both the TypeScript and
+  Python side.
+- **The numbers a tour states are tested against the simulation** (e.g. "2.84 s", "7.0 s", "2.37 s", "1.40 s", "2.81 s",
+  and the 1370 / 1852 / −482 / −483.6 kJ bookkeeping).
+
+**Quizzes.** Three questions per lab (`quiz.json` + `quiz.en/ar.json`), four choices each, instant feedback with an explanation after
+every answer, deterministic scoring (pass mark 2/3), and a result screen with a teacher's scripted feedback line. When the AI
+teacher is online, a missed question offers "Ask … to explain", which sends the question, your answer and the right answer to
+the teacher. Quiz answers are tested against the real physics/chemistry code. The dialog uses the native `<dialog>` (focus trap,
+Esc to close) and radio inputs, so it is fully keyboard-accessible.
+
+**Progress** is saved in `localStorage` (`3dschool.progress`): tour done, best quiz score, attempts; a lab is **completed** when its
+quiz is passed. Landing cards and lab headers show status, with an overall bar and a two-step "reset progress". Stored data is
+**sanitised on load**, so hand-edited or corrupt values can't break the app.
+
+### Adding or editing content
+Everything above is data: add `tour*.json` / `quiz*.json` to a lesson folder and the tests validate it (valid actions, text in both
+languages, four distinct choices, answers in range, 3 questions). Arabic text lives in the `*.ar.json` files and `web/src/i18n/ar.json`.

@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { lessons, type Subject } from '../core/lessons';
 import { useSettings } from '../store/settings';
 import { hasWebGL } from './hasWebGL';
+import { LessonBadge } from '../app/LessonBadge';
+import { quizzes } from '../quiz/quizData';
+import { lessonStatus, useProgress } from '../store/progress';
 
 const Hallway = lazy(() => import('./Hallway'));
 const webgl = hasWebGL();
@@ -13,6 +16,11 @@ export function Landing() {
   const [hovered, setHovered] = useState<Subject | null>(null);
   const lowGraphics = useSettings((s) => s.lowGraphics);
   const reducedMotion = useSettings((s) => s.reducedMotion);
+  const progress = useProgress((s) => s.lessons);
+  const resetProgress = useProgress((s) => s.reset);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const done = lessons.filter((l) => lessonStatus(progress[l.id], quizzes[l.id]?.def.passMark ?? 2) === 'completed').length;
+  const anyProgress = Object.keys(progress).length > 0;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -34,7 +42,15 @@ export function Landing() {
 
       <section className="border-t border-slate-800 bg-slate-950 px-4 py-5" aria-labelledby="choose">
         <h2 id="choose" className="text-center text-lg font-semibold">{t('landing.choose')}</h2>
-        <p className="mb-4 text-center text-sm text-slate-400">{t('landing.hint')}</p>
+        <p className="mb-3 text-center text-sm text-slate-400">{t('landing.hint')}</p>
+        {anyProgress && (
+          <div className="mx-auto mb-4 flex max-w-md items-center gap-3 text-sm">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-800" role="progressbar" aria-label={t('progress.bar')} aria-valuemin={0} aria-valuemax={lessons.length} aria-valuenow={done}>
+              <div className="h-full bg-green-400" style={{ width: `${(done / lessons.length) * 100}%` }} />
+            </div>
+            <span className="shrink-0 text-slate-300">{t('progress.summary', { done, total: lessons.length })}</span>
+          </div>
+        )}
         <ul className="mx-auto grid max-w-5xl gap-3 sm:grid-cols-3">
           {lessons.map((l) => (
             <li key={l.id}>
@@ -50,11 +66,25 @@ export function Landing() {
                 <span className="text-sm font-semibold uppercase tracking-wide rtl:normal-case rtl:tracking-normal" style={{ color: l.accent }}>{t(`subjects.${l.subject}.name`)}</span>
                 <span className="mt-1 block text-lg font-bold">{t(`subjects.${l.subject}.lab`)}</span>
                 <span className="mt-1 block text-sm text-slate-300">{t(`subjects.${l.subject}.blurb`)}</span>
+                <LessonBadge lessonId={l.id} className="mt-2" />
                 <span className="mt-3 block text-sm font-medium text-sky-300">{t('landing.enter')} <span aria-hidden className="inline-block rtl:rotate-180">→</span></span>
               </Link>
             </li>
           ))}
         </ul>
+        {anyProgress && (
+          <p className="mt-4 text-center text-xs text-slate-400">
+            {confirmReset ? (
+              <span className="inline-flex items-center gap-2">
+                {t('progress.resetConfirm')}
+                <button className="rounded border border-red-400/60 px-2 py-0.5 text-red-200 hover:bg-red-400/10" onClick={() => { resetProgress(); setConfirmReset(false); }}>{t('progress.resetYes')}</button>
+                <button className="rounded border border-slate-600 px-2 py-0.5 hover:bg-slate-800" onClick={() => setConfirmReset(false)}>{t('progress.resetNo')}</button>
+              </span>
+            ) : (
+              <button className="underline hover:text-slate-200" onClick={() => setConfirmReset(true)}>{t('progress.reset')}</button>
+            )}
+          </p>
+        )}
       </section>
     </div>
   );

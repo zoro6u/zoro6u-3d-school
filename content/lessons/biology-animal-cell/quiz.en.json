@@ -1,0 +1,35 @@
+{
+ "title": "Biology quiz",
+ "questions": {
+  "atp": {
+   "prompt": "Which organelle releases most of the cell's usable energy by making ATP?",
+   "choices": [
+    "Nucleus",
+    "Lysosome",
+    "Mitochondrion",
+    "Golgi apparatus"
+   ],
+   "explanation": "Mitochondria carry out most of aerobic respiration and make most of the cell's ATP. Their folded inner membranes give them extra surface area for the reactions."
+  },
+  "rough": {
+   "prompt": "What makes the rough endoplasmic reticulum \"rough\"?",
+   "choices": [
+    "Ribosomes attached to its surface",
+    "A coat of lysosomes",
+    "Folds in its inner membrane",
+    "The DNA stored inside it"
+   ],
+   "explanation": "Ribosomes are attached to the rough ER, and they build proteins that are threaded into it. The smooth ER has no ribosomes."
+  },
+  "golgi": {
+   "prompt": "Which organelle modifies, sorts and packages proteins into vesicles, like a post office?",
+   "choices": [
+    "Ribosome",
+    "Smooth ER",
+    "Lysosome",
+    "Golgi apparatus"
+   ],
+   "explanation": "The Golgi apparatus receives proteins and lipids from the ER, modifies them, sorts them and packs them into vesicles that deliver them to their destination."
+  }
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "passMark": 2,
+ "questions": [
+  {
+   "id": "atoms",
+   "answer": 1
+  },
+  {
+   "id": "energy",
+   "answer": 3
+  },
+  {
+   "id": "balance",
+   "answer": 2
+  }
+ ]
+}

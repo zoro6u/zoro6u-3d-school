@@ -108,7 +108,10 @@ function Lab() {
         setView('reaction');
         pl.goToStage(Math.min(a.n, pl.stageCount - 1));
       } else if (a.tool === 'set_param' && a.name === 'view' && (a.value === 'reaction' || a.value === 'balance')) setView(a.value);
-      else if (a.tool === 'set_param' && a.name === 'playing' && typeof a.value === 'boolean') {
+      else if (a.tool === 'set_param' && a.name === 'reaction' && typeof a.value === 'string' && reactions.some((r) => r.data.id === a.value)) {
+        setRid(a.value);
+        setView('reaction');
+      } else if (a.tool === 'set_param' && a.name === 'playing' && typeof a.value === 'boolean') {
         if (a.value) {
           setView('reaction');
           pl.play();

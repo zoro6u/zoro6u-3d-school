@@ -1,0 +1,15 @@
+{
+ "title": "Guided tour",
+ "steps": {
+  "welcome": "Hello, I'm Ms. Layla! Today two hydrogen molecules and one oxygen molecule will make two water molecules. Watch what the atoms do, and remember that this is a simplified model.",
+  "reactants": "Here are the reactants: two hydrogen molecules and one oxygen molecule. In each molecule the atoms share electrons in a covalent bond.",
+  "approach": "The molecules move toward each other. To react they must collide with enough energy, and in the right way.",
+  "break": "Now the bonds break. Breaking bonds always takes in energy. That starting energy is the activation energy, which is why hydrogen needs a spark to burn.",
+  "rearrange": "The free atoms regroup. Count them: four hydrogen atoms and two oxygen atoms, exactly as at the start. Atoms are never created or destroyed.",
+  "form": "New bonds form! Four oxygen to hydrogen bonds make two water molecules, and the glow shows energy leaving as heat and light.",
+  "products": "Two water molecules. Breaking the old bonds took about 1370 kilojoules and forming the new ones released about 1852, so the net is about minus 482. The measured value is minus 483.6. The reaction is exothermic.",
+  "balance": "Let's check the atoms in the balancing view. Try changing the numbers in front of the formulas and watch the counts on each side. With two, one and two, every element matches.",
+  "acid": "One more reaction: an acid meeting a base. Hydrochloric acid and sodium hydroxide swap partners to make salt and water. The key change is hydrogen joining hydroxide to make water. This is a neutralisation reaction.",
+  "outro": "That's the tour! Try stepping through the reaction yourself, balance the equation, or ask me why breaking bonds costs energy."
+ }
+}

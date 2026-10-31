@@ -1,0 +1,140 @@
+{
+ "steps": [
+  {
+   "id": "welcome",
+   "actions": [
+    {
+     "tool": "reset_scene"
+    }
+   ]
+  },
+  {
+   "id": "ten",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "pendulum_angle_deg",
+     "value": 10
+    }
+   ]
+  },
+  {
+   "id": "longer",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "pendulum_length",
+     "value": 2
+    }
+   ]
+  },
+  {
+   "id": "mass",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "pendulum_mass",
+     "value": 4
+    }
+   ]
+  },
+  {
+   "id": "moon",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "gravity",
+     "value": "moon"
+    }
+   ]
+  },
+  {
+   "id": "big",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "gravity",
+     "value": "earth"
+    },
+    {
+     "tool": "set_param",
+     "name": "pendulum_length",
+     "value": 1
+    },
+    {
+     "tool": "set_param",
+     "name": "pendulum_mass",
+     "value": 1
+    },
+    {
+     "tool": "set_param",
+     "name": "pendulum_angle_deg",
+     "value": 90
+    }
+   ]
+  },
+  {
+   "id": "damping",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "pendulum_angle_deg",
+     "value": 30
+    },
+    {
+     "tool": "set_param",
+     "name": "pendulum_damping",
+     "value": 0.3
+    }
+   ]
+  },
+  {
+   "id": "spring",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "experiment",
+     "value": "spring"
+    },
+    {
+     "tool": "set_param",
+     "name": "spring_k",
+     "value": 20
+    },
+    {
+     "tool": "set_param",
+     "name": "spring_mass",
+     "value": 1
+    },
+    {
+     "tool": "set_param",
+     "name": "spring_displacement",
+     "value": 0.3
+    },
+    {
+     "tool": "set_param",
+     "name": "spring_damping",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "heavier",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "spring_mass",
+     "value": 4
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "actions": [
+    {
+     "tool": "reset_scene"
+    }
+   ]
+  }
+ ]
+}

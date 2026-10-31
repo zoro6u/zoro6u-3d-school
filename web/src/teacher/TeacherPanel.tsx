@@ -4,6 +4,9 @@ import type { LessonMeta } from '../core/lessons';
 import { teacherById } from '../core/teachers';
 import { hasWebGL } from '../landing/hasWebGL';
 import { useSettings } from '../store/settings';
+import { tours } from './tourData';
+import { TourCard } from './TourCard';
+import { useTour } from './tourStore';
 import { useTeacher } from './store';
 import { getSpeech } from './speech/webSpeech';
 import { useVoiceInput } from './useVoiceInput';
@@ -35,6 +38,10 @@ export function TeacherPanel({ lesson }: { lesson: LessonMeta }) {
   const voiceOn = useSettings((s) => s.teacherVoice);
   const setVoiceOn = useSettings((s) => s.setTeacherVoice);
   const { open, setOpen, messages, status, mode, setMode, availability, notice, noticeVars, send, stop, clear, checkAvailability } = useTeacher();
+  const tourState = useTour((s) => s.state);
+  const startTour = useTour((s) => s.start);
+  const hasTour = lesson.id in tours;
+  const tourActive = tourState.status !== 'idle';
   const [draft, setDraft] = useState('');
   const logRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,13 +55,17 @@ export function TeacherPanel({ lesson }: { lesson: LessonMeta }) {
     if (open && availability === 'unknown') void checkAvailability();
   }, [open, availability, checkAvailability]);
   useEffect(() => getSpeech().onVoicesChanged?.(() => setVoicesTick((n) => n + 1)), []);
-  useEffect(() => () => useTeacher.getState().clear(), []); // leaving the lab ends the conversation and silences speech
+  useEffect(() => () => {
+    useTeacher.getState().clear(); // leaving the lab ends the conversation and silences speech
+    useTour.getState().stop();
+  }, []);
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages, notice]);
 
   const submit = (text: string) => {
     if (!text.trim()) return;
+    if (useTour.getState().state.status !== 'idle') useTour.getState().stop();
     setDraft('');
     void send(text, lesson);
   };
@@ -126,10 +137,17 @@ export function TeacherPanel({ lesson }: { lesson: LessonMeta }) {
         </div>
       </header>
 
-      <div ref={logRef} role="log" aria-label={t('teacher.transcript')} className="min-h-24 flex-1 space-y-2 overflow-y-auto p-3 text-sm">
+      {tourActive && <TourCard lesson={lesson} />}
+      <div ref={logRef} role="log" aria-label={t('teacher.transcript')} className={`min-h-24 flex-1 space-y-2 overflow-y-auto p-3 text-sm ${tourActive ? 'hidden' : ''}`}>
         {messages.length === 0 && (
           <>
             <p className="m-0 rounded-xl border-s-4 bg-slate-800 p-2" style={{ borderColor: lesson.accent }}>{t(`teacher.welcome.${lesson.teacher}`)}</p>
+            {hasTour && (
+              <div>
+                <button onClick={() => startTour(lesson)} className="rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-950" style={{ background: lesson.accent }}>▶ {t('teacher.tour.start')}</button>
+                <p className="m-0 mt-1 text-xs text-slate-400">{t('teacher.tour.startHint')}</p>
+              </div>
+            )}
             {!offline && (
               <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
                 {suggestions.map((s) => (
@@ -156,7 +174,7 @@ export function TeacherPanel({ lesson }: { lesson: LessonMeta }) {
       </div>
 
       <div className="space-y-1 px-3 pb-1 text-xs">
-        {offline && <p role="status" className="m-0 rounded-md bg-amber-500/15 p-2 text-amber-100">{t('teacher.offline')}</p>}
+        {offline && !tourActive && <p role="status" className="m-0 rounded-md bg-amber-500/15 p-2 text-amber-100">{t('teacher.offline')}</p>}
         {notice && <p role="alert" className="m-0 rounded-md bg-red-500/15 p-2 text-red-100">{t(notice, noticeVars)}</p>}
         {noVoiceForLang && <p className="m-0 text-slate-400">{t('teacher.noVoice')}</p>}
         {voice.error && <p className="m-0 text-slate-400">{t('teacher.micError')}</p>}

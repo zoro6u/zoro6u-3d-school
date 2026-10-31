@@ -1,0 +1,17 @@
+{
+ "passMark": 2,
+ "questions": [
+  {
+   "id": "length",
+   "answer": 1
+  },
+  {
+   "id": "spring",
+   "answer": 2
+  },
+  {
+   "id": "large",
+   "answer": 0
+  }
+ ]
+}

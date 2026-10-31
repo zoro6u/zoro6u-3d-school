@@ -1,0 +1,118 @@
+{
+ "steps": [
+  {
+   "id": "welcome",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "reaction",
+     "value": "water-synthesis"
+    },
+    {
+     "tool": "set_param",
+     "name": "view",
+     "value": "reaction"
+    },
+    {
+     "tool": "reset_scene"
+    }
+   ]
+  },
+  {
+   "id": "reactants",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 0
+    }
+   ]
+  },
+  {
+   "id": "approach",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 1
+    }
+   ]
+  },
+  {
+   "id": "break",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 2
+    }
+   ]
+  },
+  {
+   "id": "rearrange",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 3
+    }
+   ]
+  },
+  {
+   "id": "form",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "products",
+   "actions": [
+    {
+     "tool": "play_reaction_step",
+     "n": 5
+    }
+   ]
+  },
+  {
+   "id": "balance",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "view",
+     "value": "balance"
+    }
+   ]
+  },
+  {
+   "id": "acid",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "reaction",
+     "value": "hcl-naoh"
+    },
+    {
+     "tool": "set_param",
+     "name": "view",
+     "value": "reaction"
+    },
+    {
+     "tool": "play_reaction_step",
+     "n": 3
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "actions": [
+    {
+     "tool": "set_param",
+     "name": "reaction",
+     "value": "water-synthesis"
+    },
+    {
+     "tool": "reset_scene"
+    }
+   ]
+  }
+ ]
+}

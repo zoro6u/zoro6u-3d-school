@@ -1,0 +1,106 @@
+{
+ "steps": [
+  {
+   "id": "welcome",
+   "actions": [
+    {
+     "tool": "reset_scene"
+    }
+   ]
+  },
+  {
+   "id": "nucleus",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "nucleus"
+    }
+   ]
+  },
+  {
+   "id": "ribosomes",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "ribosomes"
+    }
+   ]
+  },
+  {
+   "id": "roughEr",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "roughEr"
+    }
+   ]
+  },
+  {
+   "id": "golgi",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "golgi"
+    }
+   ]
+  },
+  {
+   "id": "smoothEr",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "smoothEr"
+    }
+   ]
+  },
+  {
+   "id": "lysosomes",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "lysosomes"
+    }
+   ]
+  },
+  {
+   "id": "mitochondria",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "mitochondria"
+    }
+   ]
+  },
+  {
+   "id": "membrane",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "membrane"
+    }
+   ]
+  },
+  {
+   "id": "cytoplasm",
+   "actions": [
+    {
+     "tool": "focus_object",
+     "id": "cytoplasm"
+    }
+   ]
+  },
+  {
+   "id": "cutaway",
+   "actions": [
+    {
+     "tool": "reset_scene"
+    },
+    {
+     "tool": "set_param",
+     "name": "cutaway",
+     "value": true
+    }
+   ]
+  }
+ ]
+}
