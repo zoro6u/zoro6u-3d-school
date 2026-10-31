@@ -2,7 +2,7 @@
 
 Interactive Biology, Physics and Chemistry labs in 3D, with AI "teacher" characters. English + Arabic (RTL).
 
-> **Status:** Phase 1 of 7 — scaffold, routing, i18n/RTL, 3D landing hallway. Labs are placeholders.
+> **Status:** Phase 2 of 7 — landing hallway + Physics lab (pendulum & mass–spring) done. Biology and Chemistry labs are placeholders.
 
 ## Run it
 
@@ -33,3 +33,14 @@ All UI strings live in `web/src/i18n/{en,ar}.json`; a test enforces that both fi
 ## Demo GIF
 
 _Placeholder — to be recorded on a phone._
+
+## Physics lab (Phase 2)
+
+- Real numerical simulation: RK4 at a fixed 2 ms timestep (`web/src/labs/physics/sim/`, pure TypeScript, no React/Three).
+- The pendulum uses the **full nonlinear equation** `θ'' = −(g/L)·sin θ − c/(mL²)·θ'` — no small-angle shortcut.
+- The measured period comes from interpolated zero-crossings of the live simulation and is shown beside the theory:
+  small-angle `T = 2π√(L/g)`, the exact large-angle period (via the arithmetic–geometric mean), and the damped period.
+  At 90° the small-angle formula is ~18% off; the lab explains why.
+- Slider ranges, defaults and gravity presets (Earth 9.81, Moon 1.62, Mars 3.71 m/s²) live in
+  `content/lessons/physics-oscillations/lesson.json`.
+- 28 unit tests check the maths against textbook values, energy conservation, mass-independence of the period, etc.

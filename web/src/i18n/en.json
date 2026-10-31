@@ -1,6 +1,13 @@
 {
-  "app": { "name": "3D School", "tagline": "Learn science by exploring it in 3D, with a tutor beside you." },
-  "nav": { "home": "Home", "back": "Back to school", "skip": "Skip to content" },
+  "app": {
+    "name": "3D School",
+    "tagline": "Learn science by exploring it in 3D, with a tutor beside you."
+  },
+  "nav": {
+    "home": "Home",
+    "back": "Back to school",
+    "skip": "Skip to content"
+  },
   "settings": {
     "language": "Language",
     "lowGraphics": "Low graphics",
@@ -17,18 +24,101 @@
     "canvasLabel": "A 3D school hallway with three lab doors: biology, physics and chemistry."
   },
   "subjects": {
-    "biology": { "name": "Biology", "lab": "Animal Cell", "blurb": "Fly inside a cell and meet its organelles." },
-    "physics": { "name": "Physics", "lab": "Pendulum & Spring", "blurb": "Change gravity, length and mass, then watch the real simulation respond." },
-    "chemistry": { "name": "Chemistry", "lab": "Making Water", "blurb": "Watch 2H₂ + O₂ → 2H₂O happen, one step at a time." }
+    "biology": {
+      "name": "Biology",
+      "lab": "Animal Cell",
+      "blurb": "Fly inside a cell and meet its organelles."
+    },
+    "physics": {
+      "name": "Physics",
+      "lab": "Pendulum & Spring",
+      "blurb": "Change gravity, length and mass, then watch the real simulation respond."
+    },
+    "chemistry": {
+      "name": "Chemistry",
+      "lab": "Making Water",
+      "blurb": "Watch 2H₂ + O₂ → 2H₂O happen, one step at a time."
+    }
   },
   "teachers": {
-    "nour": { "name": "Dr. Nour", "role": "Biology teacher" },
-    "karim": { "name": "Prof. Karim", "role": "Physics teacher" },
-    "layla": { "name": "Ms. Layla", "role": "Chemistry teacher" }
+    "nour": {
+      "name": "Dr. Nour",
+      "role": "Biology teacher"
+    },
+    "karim": {
+      "name": "Prof. Karim",
+      "role": "Physics teacher"
+    },
+    "layla": {
+      "name": "Ms. Layla",
+      "role": "Chemistry teacher"
+    }
   },
   "lab": {
     "comingSoon": "This lab is being built.",
     "meetTeacher": "Your teacher: {{name}}",
     "notFound": "We couldn't find that lab."
+  },
+  "physics": {
+    "tabs": {
+      "label": "Experiment",
+      "pendulum": "Pendulum",
+      "spring": "Mass–spring"
+    },
+    "controls": {
+      "title": "Controls",
+      "length": "Length",
+      "mass": "Mass",
+      "gravity": "Gravity",
+      "angle": "Initial angle",
+      "damping": "Damping",
+      "k": "Spring constant k",
+      "displacement": "Initial displacement",
+      "speed": "Speed",
+      "play": "Play",
+      "pause": "Pause",
+      "restart": "Restart"
+    },
+    "gravity": {
+      "earth": "Earth",
+      "moon": "Moon",
+      "mars": "Mars"
+    },
+    "readouts": {
+      "title": "Live readouts",
+      "time": "Time",
+      "angle": "Angle",
+      "displacement": "Displacement",
+      "velocity": "Velocity",
+      "omega": "Angular velocity",
+      "ke": "Kinetic energy",
+      "pe": "Potential energy",
+      "total": "Total energy"
+    },
+    "period": {
+      "title": "Period",
+      "small": "Theory, small-angle formula",
+      "exact": "Theory, exact (large angle)",
+      "damped": "Theory, with damping",
+      "measured": "Measured",
+      "cycles": "{{count}} full cycles measured",
+      "waiting": "Measuring… needs two full swings",
+      "none": "—"
+    },
+    "charts": {
+      "anglePos": "Angle vs time",
+      "springPos": "Displacement vs time",
+      "energy": "Energy vs time",
+      "time": "time (s)",
+      "summary": "Chart: {{title}}. Latest value {{value}}."
+    },
+    "explain": {
+      "title": "What's going on?",
+      "pendSmall": "At small angles (under about 15°), sin θ ≈ θ, so the pendulum behaves like a simple harmonic oscillator and T ≈ 2π√(L/g) works well.",
+      "pendLarge": "At {{angle}}° the small-angle approximation sin θ ≈ θ breaks down. The real pendulum swings more slowly: its exact period is {{exact}} s, about {{error}}% longer than 2π√(L/g) predicts ({{small}} s). The simulation uses the full equation, so it shows this automatically.",
+      "pendMass": "Try changing the mass: the period doesn't change, because mass cancels out of the equation of motion. Gravity and length do change it.",
+      "springIdeal": "For an ideal spring (Hooke's law, F = −kx) the period T = 2π√(m/k) does not depend on how far you stretch it. A heavier mass or a softer spring gives a slower oscillation.",
+      "energy": "With no damping, kinetic and potential energy trade off while the total stays constant. With damping, energy is lost as heat and the total decays."
+    }
   }
 }
